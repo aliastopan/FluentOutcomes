@@ -2,6 +2,12 @@
 
 **FluentOutcomes** is a is a lightweight .NET library to wrapper returned object while handling the potential errors that comes with it without throwing an exception and to provide a fluent and intuitive way of dealing with `if-else` statement.
 
+## NuGet Package
+
+```
+    dotnet add package FluentOutcomes --version 1.0.0
+```
+
 ## Overview
 
 FluentOutcome wrapper returned object in `IOutcome` or `IOutcome<T>` interface. The best practice here to prefix a method using `Expect` keyword to mark if the method is returning `IOutcome`.
@@ -38,10 +44,6 @@ FluentOutcome wrapper returned object in `IOutcome` or `IOutcome<T>` interface. 
             .Return();
     }
 ```
-
-## NuGet Package
-
-Coming Soon<sup>TM</sup>
 
 ## Documentation
 
