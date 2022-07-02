@@ -1,7 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>FluentOutcomes</RootNamespace>
+    <AssemblyName>FluentOutcomes</AssemblyName>
+    <PackageId>FluentOutcomes</PackageId>
+    <Description>A lightweight wrapper return type object with fluent-api if-else statement for .NET</Description>
+    <Version>1.0.0</Version>
+    <Authors>Taufan Augusta</Authors>
+    <Copyright>Copyright 2022 (c) Taufan Augusta. All rights reserved.</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>wrapper, result, error-handling, fluent-api</PackageTags>
+    <PackageProjectUrl>https://github.com/einharan/FluentOutcomes</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryURL>https://github.com/einharan/FluentOutcomes</RepositoryURL>
   </PropertyGroup>
 </Project>
