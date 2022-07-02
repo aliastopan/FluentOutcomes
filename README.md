@@ -7,7 +7,7 @@
 FluentOutcome wrapper returned object in `IOutcome` or `IOutcome<T>` interface. The best practice here to prefix a method using `Expect` keyword to mark if the method is returning `IOutcome`.
 
 
-### Case: Expecting Success
+### Example: Expecting **success** and return the outcome
 ``` csharp
     public IOutcome<User> ExpectGetUser(string username)
     {
@@ -22,7 +22,7 @@ FluentOutcome wrapper returned object in `IOutcome` or `IOutcome<T>` interface. 
             .Return(result);                        // return
     }
 ```
-### Case: Expecting Failure
+### Example: Expecting **failure** and add messsage to the exception
 ``` csharp
     public IOutcome ExpectUsernameTaken(string username)
     {
