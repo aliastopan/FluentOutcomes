@@ -1,3 +1,5 @@
+using FluentOutcomes.Contracts;
+
 namespace FluentOutcomes;
 
 public class Outcome :
