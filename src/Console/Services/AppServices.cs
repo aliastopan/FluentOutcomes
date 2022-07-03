@@ -19,21 +19,11 @@ public class AppService : IAppService
     {
         _logger.LogInformation("Starting...");
 
-        string? msg = "";
-        int number = 100;
+        var x = Outcome
+            .Expect()
+            .Failure(new Error());
 
-        var foo = Outcome
-            .Expect<string>()
-            .FailureIf(number < 1)
-            .WithError(error => {
-                error.Exception = new Exception();
-            })
-            .Otherwise()
-            .Return(msg!);
-
-        _logger.LogWarning($"Failure : {foo.IsFailure}");
-        _logger.LogWarning($"Verdict : {foo.Verdict}");
-        _logger.LogWarning($"Value : {foo.Value}");
+        _logger.LogCritical($"IsFail: {x.IsSuccess}");
 
     }
 }
