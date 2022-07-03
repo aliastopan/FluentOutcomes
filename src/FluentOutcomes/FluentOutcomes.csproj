@@ -14,13 +14,15 @@
         - ADDED: Add Otherwise clause after WithError to indicate success.
         - FIXED: FailureIf clause boolean negation.
       v1.1.0
-		    - ADDED: Add immediate return
+		    - ADDED: Add immediate return.
+      v1.0.0
+		    - Initial release.
 	  </PackageReleaseNotes>
     <Authors>Taufan Augusta</Authors>
     <Copyright>Copyright 2022 (c) Taufan Augusta. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>wrapper, result, error-handling, fluent-api</PackageTags>
+    <PackageTags>lightweight, wrapper, result, error-handling, fluent-api</PackageTags>
     <PackageProjectUrl>https://github.com/einharan/FluentOutcomes</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryURL>https://github.com/einharan/FluentOutcomes</RepositoryURL>
