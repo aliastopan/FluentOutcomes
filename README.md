@@ -5,7 +5,7 @@
 ## NuGet Package
 
 ```
-    dotnet add package FluentOutcomes --version 1.0.0
+    dotnet add package FluentOutcomes --version 1.1.0
 ```
 
 ## Overview
@@ -48,15 +48,14 @@ public IOutcome ExpectUsernameTaken(string username)
 
 ### Returning **success** or **failure** immediately
 ``` csharp
+IOutcome ok = Outcome()
+    .Success();
 
-    IOutcome ok = Outcome()
-        .Success();
-
-    IOutcome fail = Outcome
-        .Expect()
-        .Failure(error => {
-            error.Exception = new Exception("Something went wrong");
-        });
+IOutcome fail = Outcome
+    .Expect()
+    .Failure(error => {
+        error.Exception = new Exception("Something went wrong");
+    });
 ```
 
 ## Documentation
