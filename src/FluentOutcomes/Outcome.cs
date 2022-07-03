@@ -67,6 +67,9 @@ public class Outcome :
 
     public IReturn Otherwise()
     {
+        if(IsSuccess)
+            return this;
+
         this.Error = new();
         return this;
     }
@@ -81,8 +84,8 @@ public class Outcome :
     {
         Error err = new();
         error?.Invoke(err);
-        this.Error = err;
 
+        this.Error = err;
         return this;
     }
 
@@ -162,13 +165,16 @@ internal class Outcome<TValue> : Outcome,
 
     public new IReturn<TValue> Otherwise()
     {
+        if(IsSuccess)
+            return this;
+
         this.Error = new();
         return this;
     }
 
     public new IReturn<TValue> Otherwise(Error error)
     {
-        this.Error = error;
+        this.Error = new();
         return this;
     }
 
@@ -183,16 +189,22 @@ internal class Outcome<TValue> : Outcome,
 
     public new IOtherwise<TValue> WithError(Error error)
     {
-        this.Error = error;
+        if(IsSuccess)
+            return this;
+
+        this.Error = new();
         return this;
     }
 
     public new IOtherwise<TValue> WithError(Action<Error> error)
     {
+        if(IsSuccess)
+            return this;
+
         Error err = new();
         error?.Invoke(err);
-
         this.Error = err;
+
         return this;
     }
 
