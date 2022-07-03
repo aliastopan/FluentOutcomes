@@ -7,6 +7,7 @@ public class Outcome :
     IExpect,
     ISuccess,
     IFailure,
+    IOtherwise,
     IReturn
 {
     public bool IsSuccess { get; protected set; }
