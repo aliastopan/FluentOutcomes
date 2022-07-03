@@ -43,7 +43,7 @@ public IOutcome ExpectUsernameTaken(string username)
             error.Exception = new Exception(message)
         })
         .Otherwise()
-        .Return(result);
+        .Return();
 }
 ```
 
