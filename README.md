@@ -12,37 +12,51 @@
 
 FluentOutcome wrapper returned object in `IOutcome` or `IOutcome<T>` interface. The best practice here to prefix a method using `Expect` keyword to mark if the method is returning `IOutcome`.
 
+## Examples
 
-### Example: Expecting **success** and return the outcome
+### Expecting **success** and return the outcome
 ``` csharp
-    public IOutcome<User> ExpectGetUser(string username)
-    {
-        var result = _context.Users.SingleOrDefault(search => search.Username == username);
+public IOutcome<User> ExpectGetUser(string username)
+{
+    var result = _context.Users.SingleOrDefault(search => search.Username == username);
 
-        return Outcome
-            .Expect<User>()                         //  declare the expected type
-            .SuccessIf(result is not null)          //  declare if true
-            .Otherwise(error => {                   //  else
-                error.Exception = new Exception()
-            })
-            .Return(result);                        // return
-    }
+    return Outcome
+        .Expect<User>()                         //  declare the expected type
+        .SuccessIf(result is not null)          //  declare if (expected true value)
+        .Otherwise(error => {                   //  else
+            error.Exception = new Exception()
+        })
+        .Return(result);                        // return
+}
 ```
-### Example: Expecting **failure** and add messsage to the exception
+### Expecting **failure** and add messsage to the exception
 ``` csharp
-    public IOutcome ExpectUsernameTaken(string username)
-    {
-        var result = _context.Users.SingleOrDefault(search => search.Username == username);
+public IOutcome ExpectUsernameTaken(string username)
+{
+    var result = _context.Users.SingleOrDefault(search => search.Username == username);
 
-        return Outcome
-            .Expect()
-            .FailureIf(result is not null)
-            .WithError(error => {
-                string message = "Username is already taken."
-                error.Exception = new Exception(message)
-            })
-            .Return();
-    }
+    return Outcome
+        .Expect()
+        .FailureIf(result is not null)
+        .WithError(error => {
+            string message = "Username is already taken."
+            error.Exception = new Exception(message)
+        })
+        .Return();
+}
+```
+
+### Returning **success** or **failure** immediately
+``` csharp
+
+    IOutcome ok = Outcome()
+        .Success();
+
+    IOutcome fail = Outcome
+        .Expect()
+        .Failure(error => {
+            error.Exception = new Exception("Something went wrong");
+        });
 ```
 
 ## Documentation

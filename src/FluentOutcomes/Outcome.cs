@@ -120,6 +120,32 @@ internal class Outcome<TValue> : Outcome,
 
     }
 
+    public IOutcome<TValue> Success(TValue value)
+    {
+        this.IsSuccess = true;
+        this.Value = value;
+        return this;
+    }
+
+    public IOutcome<TValue> Failure(TValue value, Error error)
+    {
+        this.IsSuccess = false;
+        this.Value = value;
+        this.Error = error;
+        return this;
+    }
+
+    public IOutcome<TValue> Failure(TValue value, Action<Error> error)
+    {
+        Error err = new();
+        error?.Invoke(err);
+
+        this.IsSuccess = false;
+        this.Value = value;
+        this.Error = err;
+        return this;
+    }
+
     public new ISuccess<TValue> SuccessIf(bool expectation)
     {
         this.IsSuccess = expectation;
@@ -148,8 +174,8 @@ internal class Outcome<TValue> : Outcome,
     {
         Error err = new();
         error?.Invoke(err);
-        this.Error = err;
 
+        this.Error = err;
         return this;
     }
 
@@ -159,12 +185,12 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    IReturn<TValue> IFailure<TValue>.WithError(Action<Error> error)
+    public new IReturn<TValue> WithError(Action<Error> error)
     {
         Error err = new();
         error?.Invoke(err);
-        this.Error = err;
 
+        this.Error = err;
         return this;
     }
 
