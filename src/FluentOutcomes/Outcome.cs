@@ -61,7 +61,7 @@ public class Outcome :
 
     public IFailure FailureIf(bool expectation)
     {
-        this.IsSuccess = expectation;
+        this.IsSuccess = !expectation;
         return this;
     }
 
