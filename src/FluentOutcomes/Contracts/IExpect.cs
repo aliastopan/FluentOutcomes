@@ -2,8 +2,9 @@ namespace FluentOutcomes.Contracts;
 
 public interface IExpect
 {
-    // IOutcome Success();
-    // IOutcome Failure();
+    IOutcome Success();
+    IOutcome Failure(Error error);
+    IOutcome Failure(Action<Error> error);
 
     ISuccess SuccessIf(bool expectation);
     IFailure FailureIf(bool expectation);

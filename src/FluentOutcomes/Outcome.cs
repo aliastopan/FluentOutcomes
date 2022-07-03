@@ -29,6 +29,29 @@ public class Outcome :
         return new Outcome<TValue>();
     }
 
+    public IOutcome Success()
+    {
+        this.IsSuccess = true;
+        return this;
+    }
+
+    public IOutcome Failure(Error error)
+    {
+        this.IsSuccess = false;
+        this.Error = error;
+        return this;
+    }
+
+    public IOutcome Failure(Action<Error> error)
+    {
+        this.IsSuccess = false;
+        Error err = new();
+        error?.Invoke(err);
+        this.Error = err;
+
+        return this;
+    }
+
     public ISuccess SuccessIf(bool expectation)
     {
         this.IsSuccess = expectation;
