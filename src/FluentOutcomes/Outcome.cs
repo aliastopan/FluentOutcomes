@@ -9,8 +9,8 @@ public class Outcome :
     IFailure,
     IReturn
 {
-    public bool Success { get; protected set; }
-    public bool Failure => !Success;
+    public bool IsSuccess { get; protected set; }
+    public bool IsFailure => !IsSuccess;
     public Error? Error { get; protected set; }
     public string Verdict => Error is null ? "Ok" : Error.Exception.Message;
 
@@ -31,13 +31,13 @@ public class Outcome :
 
     public ISuccess SuccessIf(bool expectation)
     {
-        this.Success = expectation;
+        this.IsSuccess = expectation;
         return this;
     }
 
     public IFailure FailureIf(bool expectation)
     {
-        this.Success = expectation;
+        this.IsSuccess = expectation;
         return this;
     }
 
@@ -99,13 +99,13 @@ internal class Outcome<TValue> : Outcome,
 
     public new ISuccess<TValue> SuccessIf(bool expectation)
     {
-        this.Success = expectation;
+        this.IsSuccess = expectation;
         return this;
     }
 
     public new IFailure<TValue> FailureIf(bool expectation)
     {
-        this.Success = expectation;
+        this.IsSuccess = expectation;
         return this;
     }
 
