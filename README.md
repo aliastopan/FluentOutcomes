@@ -1,6 +1,6 @@
 # FluentOutcomes
 
-**FluentOutcomes** is a is a lightweight .NET library to wrapper returned object while handling the potential errors that comes with it without throwing an exception and to provide a fluent and intuitive way of dealing with `if-else` statement.
+**FluentOutcomes is a lightweight .NET library to wrap a returning object while handling the potential errors that comes with it without throwing an exception and to provide a fluent and intuitive way of dealing with `if-else` statement.**
 
 ## NuGet Package
 
