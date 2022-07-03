@@ -5,7 +5,7 @@
 ## NuGet Package
 
 ```
-    dotnet add package FluentOutcomes --version 1.1.0
+    dotnet add package FluentOutcomes --version 1.2.0
 ```
 
 ## Overview
@@ -33,7 +33,7 @@ public IOutcome<User> ExpectGetUser(string username)
 ``` csharp
 public IOutcome ExpectUsernameTaken(string username)
 {
-    var result = _context.Users.SingleOrDefault(search => search.Username == username);
+    var result = _context.Users.FirstOrDefault(search => search.Username == username);
 
     return Outcome
         .Expect()
@@ -42,6 +42,7 @@ public IOutcome ExpectUsernameTaken(string username)
             string message = "Username is already taken."
             error.Exception = new Exception(message)
         })
+        .Otherwise()
         .Return();
 }
 ```

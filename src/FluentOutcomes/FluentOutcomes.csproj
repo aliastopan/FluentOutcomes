@@ -7,9 +7,14 @@
     <AssemblyName>FluentOutcomes</AssemblyName>
     <PackageId>FluentOutcomes</PackageId>
     <Description>A lightweight wrapper return type object with fluent-api if-else statement for .NET</Description>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <PackageReleaseNotes>
-		    ADDED - Add immediate return
+      v1.2.0
+		    - BREAKING CHANGES: WithError clause is now chained Otherwise clause instead.
+        - ADDED: Add Otherwise clause after WithError to indicate success.
+        - FIXED: FailureIf clause boolean negation.
+      v1.1.0
+		    - ADDED: Add immediate return
 	  </PackageReleaseNotes>
     <Authors>Taufan Augusta</Authors>
     <Copyright>Copyright 2022 (c) Taufan Augusta. All rights reserved.</Copyright>
