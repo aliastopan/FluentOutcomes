@@ -156,7 +156,7 @@ internal class Outcome<TValue> : Outcome,
 
     public new IFailure<TValue> FailureIf(bool expectation)
     {
-        this.IsSuccess = expectation;
+        this.IsSuccess = !expectation;
         return this;
     }
 
