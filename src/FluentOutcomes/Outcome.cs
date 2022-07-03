@@ -86,13 +86,13 @@ public class Outcome :
         return this;
     }
 
-    public IReturn WithError(Error error)
+    public IOtherwise WithError(Error error)
     {
         this.Error = error;
         return this;
     }
 
-    public IReturn WithError(Action<Error> error)
+    public IOtherwise WithError(Action<Error> error)
     {
         Error err = new();
         error?.Invoke(err);
@@ -112,6 +112,7 @@ internal class Outcome<TValue> : Outcome,
     IExpect<TValue> ,
     ISuccess<TValue>,
     IFailure<TValue>,
+    IOtherwise<TValue>,
     IReturn<TValue>
 {
     public TValue Value { get; private set; } = default!;
@@ -180,13 +181,13 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    public new IReturn<TValue> WithError(Error error)
+    public new IOtherwise<TValue> WithError(Error error)
     {
         this.Error = error;
         return this;
     }
 
-    public new IReturn<TValue> WithError(Action<Error> error)
+    public new IOtherwise<TValue> WithError(Action<Error> error)
     {
         Error err = new();
         error?.Invoke(err);
