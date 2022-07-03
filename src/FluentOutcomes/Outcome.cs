@@ -13,7 +13,7 @@ public class Outcome :
     public bool IsSuccess { get; protected set; }
     public bool IsFailure => !IsSuccess;
     public Error? Error { get; protected set; }
-    public string Verdict => Error is null ? "Ok" : Error.Exception.Message;
+    public string Verdict => Error is null ? "OK" : Error.Exception.Message;
 
     protected Outcome()
     {
