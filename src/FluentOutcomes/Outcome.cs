@@ -59,6 +59,18 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
+    public ISuccess SuccessIfNot(bool expectation)
+    {
+        this.IsSuccess = !expectation;
+        return this;
+    }
+
+    public IFailure FailureIfNot(bool expectation)
+    {
+        this.IsSuccess = expectation;
+        return this;
+    }
+
     public IReturn Otherwise()
     {
         if(IsSuccess)
@@ -172,6 +184,18 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
     public new IFailure<T> FailureIf(bool expectation)
     {
         this.IsSuccess = !expectation;
+        return this;
+    }
+
+    public new ISuccess<T> SuccessIfNot(bool expectation)
+    {
+        this.IsSuccess = !expectation;
+        return this;
+    }
+
+    public new IFailure<T> FailureIfNot(bool expectation)
+    {
+        this.IsSuccess = expectation;
         return this;
     }
 
