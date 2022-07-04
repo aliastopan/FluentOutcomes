@@ -47,7 +47,6 @@ public class UnitTests
         var x = Outcome
             .Expect()
             .FailureIf(string.IsNullOrEmpty(message))
-            .WithError(new Error())
             .Otherwise()
             .Return();
 
