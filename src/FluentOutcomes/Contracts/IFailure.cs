@@ -1,13 +1,13 @@
 namespace FluentOutcomes.Contracts;
 
-public interface IFailure
+public interface IFailure : ILogic<IFailure>
 {
     IReturn Otherwise();
     IOtherwise WithError(Error error);
     IOtherwise WithError(Action<Error> error);
 }
 
-public interface IFailure<T> : IFailure
+public interface IFailure<T> : IFailure, ILogic<IFailure<T>>
 {
     new IReturn<T> Otherwise();
     new IOtherwise<T> WithError(Error error);

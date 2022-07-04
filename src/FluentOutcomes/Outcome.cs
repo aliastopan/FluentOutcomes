@@ -102,6 +102,30 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
     {
         return this;
     }
+
+    ISuccess ILogic<ISuccess>.Or(bool condition)
+    {
+        this.IsSuccess = IsSuccess || condition;
+        return this;
+    }
+
+    ISuccess ILogic<ISuccess>.And(bool condition)
+    {
+        this.IsSuccess = IsSuccess && condition;
+        return this;
+    }
+
+    IFailure ILogic<IFailure>.Or(bool condition)
+    {
+        this.IsSuccess = !(IsFailure || condition);
+        return this;
+    }
+
+    IFailure ILogic<IFailure>.And(bool condition)
+    {
+        this.IsSuccess = !(IsFailure || condition);
+        return this;
+    }
 }
 
 internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFailure<T>, IOtherwise<T>, IReturn<T>
@@ -199,6 +223,30 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
     public IOutcome<T> Return(T value)
     {
         this.Value = value;
+        return this;
+    }
+
+    ISuccess<T> ILogic<ISuccess<T>>.Or(bool condition)
+    {
+        this.IsSuccess = IsSuccess || condition;
+        return this;
+    }
+
+    ISuccess<T> ILogic<ISuccess<T>>.And(bool condition)
+    {
+        this.IsSuccess = IsSuccess && condition;
+        return this;
+    }
+
+    IFailure<T> ILogic<IFailure<T>>.Or(bool condition)
+    {
+        this.IsSuccess = !(IsFailure || condition);
+        return this;
+    }
+
+    IFailure<T> ILogic<IFailure<T>>.And(bool condition)
+    {
+        this.IsSuccess = !(IsFailure && condition);
         return this;
     }
 }
