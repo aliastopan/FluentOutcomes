@@ -1,4 +1,5 @@
 
+using System.Runtime.CompilerServices;
 namespace FluentOutcomes.Tests;
 
 public class UnitTests
@@ -168,5 +169,32 @@ public class UnitTests
             .Return("");
 
         Assert.True(x.IsFailure);
+    }
+
+    [Fact]
+    public void LongChainingTest()
+    {
+        string? foo = "X";
+        string? bar = "";
+        string? baz = "O";
+        string? qux = "";
+        string? led = "Y";
+        string? bur = "";
+        // string? bam = "";
+
+        bool args = foo == "" || bar == "" || baz == "" || qux == "" && !(led == "X");
+
+        var x = Outcome
+            .Expect<string>()
+            .FailureIf(foo == "")
+                .AndNot(foo == "Z")
+                .Or(led == "X")
+                .And(bar == "D")
+                .OrNot(bar == bur)
+            .Otherwise()
+            .Return("");
+
+        Assert.True(x.IsSuccess);
+        // Assert.Equal(args, x.IsSuccess);
     }
 }
