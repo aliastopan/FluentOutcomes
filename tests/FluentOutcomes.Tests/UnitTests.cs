@@ -97,4 +97,44 @@ public class UnitTests
 
         Assert.Equal(typeof(string), message.GetType());
     }
+
+    [Fact]
+    public void SuccessLogicChainTest()
+    {
+        string? foo = "";
+        string? bar = "";
+        string? baz = "";
+        string? qux = "";
+
+        var x = Outcome
+            .Expect<string>()
+            .SuccessIf(foo == "")
+                .And(bar == "")
+                .And(baz == "")
+                .And(qux == "")
+            .Otherwise()
+            .Return("");
+
+        Assert.True(x.IsSuccess);
+    }
+
+    [Fact]
+    public void FailureLogicChainTest()
+    {
+        string? foo = "";
+        string? bar = "";
+        string? baz = "";
+        string? qux = "";
+
+        var x = Outcome
+            .Expect<string>()
+            .FailureIf(foo == "")
+                .Or(bar == "")
+                .Or(baz == "")
+                .Or(qux == "")
+            .Otherwise()
+            .Return("");
+
+        Assert.True(x.IsFailure);
+    }
 }
