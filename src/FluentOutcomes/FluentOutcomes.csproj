@@ -7,7 +7,7 @@
     <AssemblyName>FluentOutcomes</AssemblyName>
     <PackageId>FluentOutcomes</PackageId>
     <Description>A lightweight wrapper return type object with fluent-api if-else statement for .NET</Description>
-    <Version>1.2.0</Version>
+    <Version>2.0.1-beta</Version>
     <PackageReleaseNotes>
       v1.2.0
 		    - BREAKING CHANGES: WithError clause is now chained Otherwise clause instead.
