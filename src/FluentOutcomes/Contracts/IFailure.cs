@@ -7,9 +7,9 @@ public interface IFailure : ILogic<IFailure>
     IOtherwise WithError(Action<Error> error);
 }
 
-public interface IFailure<T> : IFailure, ILogic<IFailure<T>>
+public interface IFailure<T> : ILogic<IFailure<T>>
 {
-    new IReturn<T> Otherwise();
-    new IOtherwise<T> WithError(Error error);
-    new IOtherwise<T> WithError(Action<Error> error);
+    IReturn<T> Otherwise();
+    IOtherwise<T> WithError(Error error);
+    IOtherwise<T> WithError(Action<Error> error);
 }
