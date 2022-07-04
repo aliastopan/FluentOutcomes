@@ -8,7 +8,7 @@ public interface IOutcome
     string Verdict { get; }
 }
 
-public interface IOutcome<TValue> : IOutcome
+public interface IOutcome<T> : IOutcome
 {
-    TValue Value { get; }
+    T Value { get; }
 }

@@ -5,7 +5,7 @@ public interface IReturn
     IOutcome Return();
 }
 
-public interface IReturn<TValue> : IReturn
+public interface IReturn<T> : IReturn
 {
-    IOutcome<TValue> Return(TValue value);
+    IOutcome<T> Return(T value);
 }

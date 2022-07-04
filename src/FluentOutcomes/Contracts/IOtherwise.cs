@@ -5,8 +5,8 @@ public interface IOtherwise
     IReturn Otherwise();
 }
 
-public interface IOtherwise<TValue>
+public interface IOtherwise<T>
 {
-    IReturn<TValue> Otherwise();
+    IReturn<T> Otherwise();
 }
 

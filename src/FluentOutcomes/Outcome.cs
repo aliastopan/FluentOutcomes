@@ -2,13 +2,7 @@ using FluentOutcomes.Contracts;
 
 namespace FluentOutcomes;
 
-public class Outcome :
-    IOutcome,
-    IExpect,
-    ISuccess,
-    IFailure,
-    IOtherwise,
-    IReturn
+public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IReturn
 {
     public bool IsSuccess { get; protected set; }
     public bool IsFailure => !IsSuccess;
@@ -25,9 +19,9 @@ public class Outcome :
         return new Outcome();
     }
 
-    public static IExpect<TValue> Expect<TValue>()
+    public static IExpect<T> Expect<T>()
     {
-        return new Outcome<TValue>();
+        return new Outcome<T>();
     }
 
     public IOutcome Success()
@@ -110,29 +104,23 @@ public class Outcome :
     }
 }
 
-internal class Outcome<TValue> : Outcome,
-    IOutcome<TValue>,
-    IExpect<TValue> ,
-    ISuccess<TValue>,
-    IFailure<TValue>,
-    IOtherwise<TValue>,
-    IReturn<TValue>
+internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFailure<T>, IOtherwise<T>, IReturn<T>
 {
-    public TValue Value { get; private set; } = default!;
+    public T Value { get; private set; } = default!;
 
     protected internal Outcome()
     {
 
     }
 
-    public IOutcome<TValue> Success(TValue value)
+    public IOutcome<T> Success(T value)
     {
         this.IsSuccess = true;
         this.Value = value;
         return this;
     }
 
-    public IOutcome<TValue> Failure(TValue value, Error error)
+    public IOutcome<T> Failure(T value, Error error)
     {
         this.IsSuccess = false;
         this.Value = value;
@@ -140,7 +128,7 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    public IOutcome<TValue> Failure(TValue value, Action<Error> error)
+    public IOutcome<T> Failure(T value, Action<Error> error)
     {
         Error err = new();
         error?.Invoke(err);
@@ -151,19 +139,19 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    public new ISuccess<TValue> SuccessIf(bool expectation)
+    public new ISuccess<T> SuccessIf(bool expectation)
     {
         this.IsSuccess = expectation;
         return this;
     }
 
-    public new IFailure<TValue> FailureIf(bool expectation)
+    public new IFailure<T> FailureIf(bool expectation)
     {
         this.IsSuccess = !expectation;
         return this;
     }
 
-    public new IReturn<TValue> Otherwise()
+    public new IReturn<T> Otherwise()
     {
         if(IsSuccess)
             return this;
@@ -172,13 +160,13 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    public new IReturn<TValue> Otherwise(Error error)
+    public new IReturn<T> Otherwise(Error error)
     {
         this.Error = new();
         return this;
     }
 
-    public new IReturn<TValue> Otherwise(Action<Error> error)
+    public new IReturn<T> Otherwise(Action<Error> error)
     {
         Error err = new();
         error?.Invoke(err);
@@ -187,7 +175,7 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    public new IOtherwise<TValue> WithError(Error error)
+    public new IOtherwise<T> WithError(Error error)
     {
         if(IsSuccess)
             return this;
@@ -196,7 +184,7 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    public new IOtherwise<TValue> WithError(Action<Error> error)
+    public new IOtherwise<T> WithError(Action<Error> error)
     {
         if(IsSuccess)
             return this;
@@ -208,7 +196,7 @@ internal class Outcome<TValue> : Outcome,
         return this;
     }
 
-    public IOutcome<TValue> Return(TValue value)
+    public IOutcome<T> Return(T value)
     {
         this.Value = value;
         return this;

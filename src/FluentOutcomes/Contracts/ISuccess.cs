@@ -7,9 +7,9 @@ public interface ISuccess
     IReturn Otherwise(Action<Error> error);
 }
 
-public interface ISuccess<TValue> : ISuccess
+public interface ISuccess<T> : ISuccess
 {
-    new IReturn<TValue> Otherwise();
-    new IReturn<TValue> Otherwise(Error error);
-    new IReturn<TValue> Otherwise(Action<Error> error);
+    new IReturn<T> Otherwise();
+    new IReturn<T> Otherwise(Error error);
+    new IReturn<T> Otherwise(Action<Error> error);
 }
