@@ -137,4 +137,36 @@ public class UnitTests
 
         Assert.True(x.IsFailure);
     }
+
+    [Fact]
+    public void SuccessAndNotTest()
+    {
+        string? foo = "";
+        string? bar = "";
+
+        var x = Outcome
+            .Expect<string>()
+            .SuccessIf(foo == "")
+                .AndNot(bar == "")
+            .Otherwise()
+            .Return("");
+
+        Assert.True(x.IsFailure);
+    }
+
+    [Fact]
+    public void SuccessOrNotTest()
+    {
+        string? foo = "";
+        string? bar = "";
+
+        var x = Outcome
+            .Expect<string>()
+            .SuccessIf(foo == "")
+                .AndNot(bar == "")
+            .Otherwise()
+            .Return("");
+
+        Assert.True(x.IsFailure);
+    }
 }
