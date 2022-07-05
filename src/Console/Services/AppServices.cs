@@ -28,20 +28,17 @@ public class AppService : IAppService
         string? dim = "";
         string? cok = "";
 
-        var actual = foo == "X" && bar == "X" || qux == "X" || led == "" || dim == "X";
-
         var x = Outcome
             .Expect()
-            .SuccessIf(foo == "X")
-                .And(bar == "X")
-                .Or(qux == "X")
-                .Or(led == "")
-                .Or(dim == "X")
+            .SuccessIf(true)
+                .And(true)
+                .And(true)
+                .AndNot(false)
             .Otherwise()
             .Return();
 
-        _logger.LogInformation($"Actual: {actual}");
-        _logger.LogInformation($"Outcome: {x.IsSuccess}");
+        var result = x.IsSuccess ? "Success" : "Failure";
+        _logger.LogInformation($"Outcome: {result}");
 
 
 
@@ -54,9 +51,11 @@ public class AppService : IAppService
 
 
 
-
-
-
+        // var actual = foo == "X" && bar == "X" || qux == "X" || led == "" || dim == "X";
+        // _logger.LogInformation($"Actual: {actual}");
+        // bool disabled = true;
+        // bool overwritten = true;
+        // bool actual = !(foo == "" && !disabled);
 
 
 

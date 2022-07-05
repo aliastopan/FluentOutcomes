@@ -4,13 +4,33 @@ namespace FluentOutcomes.Tests;
 public class UnitTests
 {
     [Fact]
-    public void Test()
+    public void _SuccessChaining()
     {
         var x = Outcome
             .Expect()
             .SuccessIf(true)
+                .And(true)
+                .And(true)
+                .And(true)
             .Otherwise()
             .Return();
+
+        Assert.True(x.IsSuccess);
+    }
+
+    [Fact]
+    public void _FailureChaining()
+    {
+        var x = Outcome
+            .Expect()
+            .FailureIf(false)
+                .Or(false)
+                .Or(false)
+                .Or(false)
+            .Otherwise()
+            .Return();
+
+        Assert.True(x.IsSuccess);
     }
 
     [Fact]
