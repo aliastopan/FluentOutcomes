@@ -133,8 +133,12 @@ public class UnitTests
                 .Or(bar == "")
                 .Or(baz == "")
                 .Or(qux == "")
+            .WithError(error => {
+                string message = "error";
+                error.Exception = new Exception(message);
+            })
             .Otherwise()
-            .Return("");
+            .Return("Hello, World");
 
         Assert.True(x.IsFailure);
     }
@@ -195,6 +199,11 @@ public class UnitTests
             .Return("");
 
         Assert.True(x.IsSuccess);
-        // Assert.Equal(args, x.IsSuccess);
+
+    var xx = Outcome
+        .Expect<int>()
+        .SuccessIf(true)
+        .Otherwise()
+        .Return(10);
     }
 }
