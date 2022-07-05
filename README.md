@@ -5,7 +5,7 @@ FluentOutcomes is a lightweight .NET library to wrap a returning object while ha
 ## NuGet Package
 
 ```
-    dotnet add package FluentOutcomes --version 2.0.0-beta.2
+    dotnet add package FluentOutcomes --version 2.0.0-beta.3
 ```
 
 ## Overview
@@ -62,17 +62,16 @@ public IOutcome<User> ExpectGetUser(string username)
 }
 ```
 
-### Returning success or failure **immediately**
+### Immediate return **OK** and **Fail**
 ``` csharp
-IOutcome ok = Outcome()
-    .Expect()
-    .Success();
-
-IOutcome fail = Outcome
-    .Expect()
-    .Failure(error => {
-        error.Exception = new Exception("Something went wrong");
-    });
+var foo = Outcome.OK();
+var bar = Outcome.OK<string>("OK");
+var baz = Outcome.Fail();
+var qux = Outcome.Fail(new Error());
+var led = Outcome.Fail(error => { error.Exception = new Exception(); });
+var bam = Outcome.Fail<string>("Fail");
+var dim = Outcome.Fail<string>("Fail", new Error());
+var cok = Outcome.Fail<string>("Fail", error => { error.Exception = new Exception(); });
 ```
 
 ### Using **IfNot**, **Or**, **And**, **OrNot**, and **AndNot**
