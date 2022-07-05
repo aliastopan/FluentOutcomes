@@ -18,12 +18,5 @@ public class AppService : IAppService
     public void Run()
     {
         _logger.LogInformation("Starting...");
-
-        var x = Outcome
-            .Expect()
-            .Failure(new Error());
-
-        _logger.LogCritical($"IsFail: {x.IsSuccess}");
-
     }
 }

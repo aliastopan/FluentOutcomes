@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using FluentOutcomes.Contracts;
 
 namespace FluentOutcomes;
@@ -14,6 +15,78 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
 
     }
 
+    public static IOutcome OK()
+    {
+        return new Outcome(){
+            IsSuccess = true
+        };
+    }
+
+    public static IOutcome<T> OK<T>(T value)
+    {
+        return new Outcome<T>(){
+            IsSuccess = true,
+            Value = value
+        };
+    }
+
+    public static IOutcome Fail()
+    {
+        return new Outcome(){
+            IsSuccess = false,
+            Error = new Error()
+        };
+    }
+
+    public static IOutcome Fail(Error error)
+    {
+        return new Outcome(){
+            IsSuccess = false,
+            Error = error
+        };
+    }
+
+    public static IOutcome Fail(Action<Error> error)
+    {
+        Error err = new();
+        error?.Invoke(err);
+
+        return new Outcome(){
+            IsSuccess = false,
+            Error = err
+        };
+    }
+
+    public static IOutcome<T> Fail<T>(T value)
+    {
+        return new Outcome<T>(){
+            IsSuccess = false,
+            Value = value,
+            Error = new Error()
+        };
+    }
+
+    public static IOutcome<T> Fail<T>(T value, Error error)
+    {
+        return new Outcome<T>(){
+            IsSuccess = false,
+            Value = value,
+            Error = error
+        };
+    }
+
+    public static IOutcome<T> Fail<T>(T value, Action<Error> error)
+    {
+        Error err = new();
+        error?.Invoke(err);
+
+        return new Outcome<T>(){
+            IsSuccess = false,
+            Value = value,
+            Error = err
+        };
+    }
+
     public static IExpect Expect()
     {
         return new Outcome();
@@ -22,29 +95,6 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
     public static IExpect<T> Expect<T>()
     {
         return new Outcome<T>();
-    }
-
-    public IOutcome Success()
-    {
-        this.IsSuccess = true;
-        return this;
-    }
-
-    public IOutcome Failure(Error error)
-    {
-        this.IsSuccess = false;
-        this.Error = error;
-        return this;
-    }
-
-    public IOutcome Failure(Action<Error> error)
-    {
-        this.IsSuccess = false;
-        Error err = new();
-        error?.Invoke(err);
-        this.Error = err;
-
-        return this;
     }
 
     public ISuccess SuccessIf(bool expectation)
@@ -166,45 +216,11 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
 
 internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFailure<T>, IOtherwise<T>, IReturn<T>
 {
-    public T Value { get; private set; } = default!;
+    public T Value { get; set; } = default!;
 
     protected internal Outcome()
     {
 
-    }
-
-    public IOutcome<T> Success(T value)
-    {
-        this.IsSuccess = true;
-        this.Value = value;
-        return this;
-    }
-
-    public IOutcome<T> Failure(T value)
-    {
-        this.IsSuccess = false;
-        this.Value = value;
-        this.Error = new Error();
-        return this;
-    }
-
-    public IOutcome<T> Failure(T value, Error error)
-    {
-        this.IsSuccess = false;
-        this.Value = value;
-        this.Error = error;
-        return this;
-    }
-
-    public IOutcome<T> Failure(T value, Action<Error> error)
-    {
-        Error err = new();
-        error?.Invoke(err);
-
-        this.IsSuccess = false;
-        this.Value = value;
-        this.Error = err;
-        return this;
     }
 
     public new ISuccess<T> SuccessIf(bool expectation)

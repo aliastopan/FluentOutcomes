@@ -1,29 +1,38 @@
 
-using System.Runtime.CompilerServices;
 namespace FluentOutcomes.Tests;
 
 public class UnitTests
 {
     [Fact]
-    public void ExpectSuccessTest()
+    public void Test()
     {
         var x = Outcome
             .Expect()
-            .Success();
-
-        Assert.Equal(true, x.IsSuccess);
+            .SuccessIf(true)
+            .Otherwise()
+            .Return();
     }
 
     [Fact]
-    public void ExpectFailureTest()
+    public void OutcomeInstantTest()
     {
-        var x = Outcome
-            .Expect()
-            .Failure(error => {
-                error.Exception = new Exception();
-            });
+        var foo = Outcome.OK();
+        var bar = Outcome.OK<string>("OK");
+        var baz = Outcome.Fail();
+        var qux = Outcome.Fail(new Error());
+        var led = Outcome.Fail(error => { error.Exception = new Exception(); });
+        var bam = Outcome.Fail<string>("Fail");
+        var dim = Outcome.Fail<string>("Fail", new Error());
+        var cok = Outcome.Fail<string>("Fail", error => { error.Exception = new Exception(); });
 
-        Assert.Equal(false, x.IsSuccess);
+        Assert.True(foo.IsSuccess);
+        Assert.True(bar.IsSuccess);
+        Assert.True(baz.IsFailure);
+        Assert.True(qux.IsFailure);
+        Assert.True(led.IsFailure);
+        Assert.True(bam.IsFailure);
+        Assert.True(dim.IsFailure);
+        Assert.True(cok.IsFailure);
     }
 
     [Fact]
