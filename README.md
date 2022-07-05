@@ -5,7 +5,7 @@ FluentOutcomes is a lightweight .NET library to wrap a returning object while ha
 ## NuGet Package
 
 ```
-    dotnet add package FluentOutcomes --version 2.0.0-beta.3
+    dotnet add package FluentOutcomes --version 2.0.0
 ```
 
 ## Overview
@@ -92,10 +92,11 @@ IOutcome<string> outcome = Outcome
     .Return("Hello, World");
 ```
 
-### **Note**: Please aware that using a long chain of complex boolean operation might resulting unpredicted output. Since the the operation was calculate against the previous condition, the precedence and order of evaluation was ignored.
+**Note**: Please aware that using a long chain of complex boolean operation might resulting unpredicted output. Since the the operation was calculate against the previous condition, the precedence and order of evaluation was ignored. *This may change in future release.*
 
-*This may change in future release.*
+It would be more intuitive if **Or()** operation is chain to **FailureIf()** clause, where **And()** is chain to **SuccessIf()**.
 
+### Would return **IsFailure** is any of the following string is an empty string.
 ``` csharp
 IOutcome<string> foo = Outcome
     .Expect<string>()
@@ -111,6 +112,7 @@ IOutcome<string> foo = Outcome
     .Return("Hello, World");
 ```
 
+### Would only return **IsSucsess** if all string is matched.
 ``` csharp
 IOutcome<string> bar = Outcome
     .Expect<string>()
