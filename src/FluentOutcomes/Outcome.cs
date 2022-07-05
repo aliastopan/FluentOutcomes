@@ -180,6 +180,14 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
+    public IOutcome<T> Failure(T value)
+    {
+        this.IsSuccess = false;
+        this.Value = value;
+        this.Error = new Error();
+        return this;
+    }
+
     public IOutcome<T> Failure(T value, Error error)
     {
         this.IsSuccess = false;

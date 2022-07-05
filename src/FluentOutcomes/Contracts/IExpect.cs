@@ -16,6 +16,7 @@ public interface IExpect<T>
     IOutcome<T> Success(T value);
     ISuccess<T> SuccessIf(bool expectation);
     ISuccess<T> SuccessIfNot(bool expectation);
+    IOutcome<T> Failure(T value);
     IOutcome<T> Failure(T value, Error error);
     IOutcome<T> Failure(T value, Action<Error> error);
     IFailure<T> FailureIf(bool expectation);
