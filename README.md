@@ -73,10 +73,11 @@ var bam = Outcome.Fail<string>("Fail");
 var dim = Outcome.Fail<string>("Fail", new Error());
 var cok = Outcome.Fail<string>("Fail", error => { error.Exception = new Exception(); });
 ```
+## Fluent Boolean Operation
 
 ### Using **IfNot**, **Or**, **And**, **OrNot**, and **AndNot**
 ``` csharp
-var o = Outcome
+IOutcome<string> outcome = Outcome
     .Expect<string>()
     .SuccessIfNot(true)
         .Or(true)
@@ -91,8 +92,12 @@ var o = Outcome
     .Return("Hello, World");
 ```
 
+### **Note**: Please aware that using a long chain of complex boolean operation might resulting unpredicted output. Since the the operation was calculate against the previous condition, the precedence and order of evaluation was ignored.
+
+*This may change in future release.*
+
 ``` csharp
-var o = Outcome
+IOutcome<string> foo = Outcome
     .Expect<string>()
     .FailureIf(foo == "")
         .Or(bar == "")
@@ -107,7 +112,7 @@ var o = Outcome
 ```
 
 ``` csharp
-var o = Outcome
+IOutcome<string> bar = Outcome
     .Expect<string>()
     .SuccessIf(foo == "Hey,")
         .And(bar == "this")
