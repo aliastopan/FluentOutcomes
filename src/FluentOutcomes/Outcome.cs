@@ -14,14 +14,14 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
 
     }
 
-    public static IOutcome OK()
+    public static IOutcome Ok()
     {
         return new Outcome(){
             IsSuccess = true
         };
     }
 
-    public static IOutcome<T> OK<T>(T value)
+    public static IOutcome<T> Ok<T>(T value)
     {
         return new Outcome<T>(){
             IsSuccess = true,

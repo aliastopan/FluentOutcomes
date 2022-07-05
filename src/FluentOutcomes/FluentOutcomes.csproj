@@ -7,8 +7,10 @@
     <AssemblyName>FluentOutcomes</AssemblyName>
     <PackageId>FluentOutcomes</PackageId>
     <Description>A lightweight wrapper return type object with declarative and fluent if-else statement for .NET</Description>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <PackageReleaseNotes>
+    v2.0.1
+      - Just patched things up.
     v2.0.0
       - BREAKING CHANGES: Expect() no longer chained to immediate return.
       - REMOVED: Success() and Failure()

@@ -36,8 +36,8 @@ public class UnitTests
     [Fact]
     public void OutcomeInstantTest()
     {
-        var foo = Outcome.OK();
-        var bar = Outcome.OK<string>("OK");
+        var foo = Outcome.Ok();
+        var bar = Outcome.Ok<string>("OK");
         var baz = Outcome.Fail();
         var qux = Outcome.Fail(new Error());
         var led = Outcome.Fail(error => { error.Exception = new Exception(); });
