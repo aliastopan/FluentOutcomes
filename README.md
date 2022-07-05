@@ -64,8 +64,8 @@ public IOutcome<User> ExpectGetUser(string username)
 
 ### Immediate return **OK** and **Fail**
 ``` csharp
-var foo = Outcome.OK();
-var bar = Outcome.OK<string>("OK");
+var foo = Outcome.Ok();
+var bar = Outcome.Ok<string>("OK");
 var baz = Outcome.Fail();
 var qux = Outcome.Fail(new Error());
 var led = Outcome.Fail(error => { error.Exception = new Exception(); });
