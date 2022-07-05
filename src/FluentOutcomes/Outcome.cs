@@ -218,6 +218,7 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
     public T Value { get; set; } = default!;
 
     protected internal Outcome()
+        : base()
     {
 
     }
