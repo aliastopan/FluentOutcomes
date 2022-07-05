@@ -154,8 +154,8 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
     {
         Error err = new();
         error?.Invoke(err);
-        Error = err;
 
+        Error = err;
         return this;
     }
 
@@ -287,8 +287,8 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
 
         Error err = new();
         error?.Invoke(err);
-        Error = err;
 
+        Error = err;
         return this;
     }
 
