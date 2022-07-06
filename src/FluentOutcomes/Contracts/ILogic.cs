@@ -6,4 +6,8 @@ public interface ILogic<I>
     I OrNot(bool condition);
     I And(bool condition);
     I AndNot(bool condition);
+    I Or(Func<bool> evaluate);
+    I OrNot(Func<bool> evaluate);
+    I And(Func<bool> evaluate);
+    I AndNot(Func<bool> evaluate);
 }
