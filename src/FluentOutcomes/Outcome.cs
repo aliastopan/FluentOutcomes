@@ -108,15 +108,15 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    public ISuccess SuccessIf(Func<bool> condition)
+    public ISuccess SuccessIf(Func<bool> evaluate)
     {
-        IsSuccess = condition.Invoke();
+        IsSuccess = evaluate.Invoke();
         return this;
     }
 
-    public ISuccess SuccessIfNot(Func<bool> condition)
+    public ISuccess SuccessIfNot(Func<bool> evaluate)
     {
-        IsSuccess = !condition.Invoke();
+        IsSuccess = !evaluate.Invoke();
         return this;
     }
 
@@ -132,15 +132,15 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    public IFailure FailureIf(Func<bool> condition)
+    public IFailure FailureIf(Func<bool> evaluate)
     {
-        IsSuccess = !condition.Invoke();
+        IsSuccess = !evaluate.Invoke();
         return this;
     }
 
-    public IFailure FailureIfNot(Func<bool> condition)
+    public IFailure FailureIfNot(Func<bool> evaluate)
     {
-        IsSuccess = condition.Invoke();
+        IsSuccess = evaluate.Invoke();
         return this;
     }
 
@@ -259,15 +259,15 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
-    public new ISuccess<T> SuccessIf(Func<bool> condition)
+    public new ISuccess<T> SuccessIf(Func<bool> evaluate)
     {
-        IsSuccess = condition.Invoke();
+        IsSuccess = evaluate.Invoke();
         return this;
     }
 
-    public new ISuccess<T> SuccessIfNot(Func<bool> condition)
+    public new ISuccess<T> SuccessIfNot(Func<bool> evaluate)
     {
-        IsSuccess = !condition.Invoke();
+        IsSuccess = !evaluate.Invoke();
         return this;
     }
 
@@ -283,15 +283,15 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
-    public new IFailure<T> FailureIf(Func<bool> condition)
+    public new IFailure<T> FailureIf(Func<bool> evaluate)
     {
-        IsSuccess = !condition.Invoke();
+        IsSuccess = !evaluate.Invoke();
         return this;
     }
 
-    public new IFailure<T> FailureIfNot(Func<bool> condition)
+    public new IFailure<T> FailureIfNot(Func<bool> evaluate)
     {
-        IsSuccess = condition.Invoke();
+        IsSuccess = evaluate.Invoke();
         return this;
     }
 

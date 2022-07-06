@@ -32,7 +32,10 @@ public class AppService : IAppService
 
         var x = Outcome
             .Expect<string>()
-            .SuccessIf(xFunc)
+            .SuccessIf(() => {
+                var evaluate = qux != "" || dim != "";
+                return evaluate;
+            })
             .Otherwise()
             .Return("");
 
