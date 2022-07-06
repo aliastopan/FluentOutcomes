@@ -102,15 +102,15 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    public ISuccess SuccessIfNot(bool condition)
-    {
-        IsSuccess = !condition;
-        return this;
-    }
-
     public ISuccess SuccessIf(Func<bool> evaluate)
     {
         IsSuccess = evaluate.Invoke();
+        return this;
+    }
+
+    public ISuccess SuccessIfNot(bool condition)
+    {
+        IsSuccess = !condition;
         return this;
     }
 
@@ -126,15 +126,15 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    public IFailure FailureIfNot(bool condition)
-    {
-        IsSuccess = condition;
-        return this;
-    }
-
     public IFailure FailureIf(Func<bool> evaluate)
     {
         IsSuccess = !evaluate.Invoke();
+        return this;
+    }
+
+    public IFailure FailureIfNot(bool condition)
+    {
+        IsSuccess = condition;
         return this;
     }
 
@@ -188,18 +188,6 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    ISuccess ILogic<ISuccess>.Or(bool condition)
-    {
-        IsSuccess = IsSuccess || condition;
-        return this;
-    }
-
-    ISuccess ILogic<ISuccess>.Or(Func<bool> evaluate)
-    {
-        IsSuccess = IsSuccess || evaluate.Invoke();
-        return this;
-    }
-
     ISuccess ILogic<ISuccess>.And(bool condition)
     {
         IsSuccess = IsSuccess && condition;
@@ -209,18 +197,6 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
     ISuccess ILogic<ISuccess>.And(Func<bool> evaluate)
     {
         IsSuccess = IsSuccess && evaluate.Invoke();
-        return this;
-    }
-
-    ISuccess ILogic<ISuccess>.OrNot(bool condition)
-    {
-        IsSuccess = IsSuccess || !condition;
-        return this;
-    }
-
-    ISuccess ILogic<ISuccess>.OrNot(Func<bool> evaluate)
-    {
-        IsSuccess = IsSuccess || !evaluate.Invoke();
         return this;
     }
 
@@ -236,15 +212,27 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    IFailure ILogic<IFailure>.Or(bool condition)
+    ISuccess ILogic<ISuccess>.Or(bool condition)
     {
-        IsSuccess = !(IsFailure || condition);
+        IsSuccess = IsSuccess || condition;
         return this;
     }
 
-    IFailure ILogic<IFailure>.Or(Func<bool> evaluate)
+    ISuccess ILogic<ISuccess>.Or(Func<bool> evaluate)
     {
-        IsSuccess = !(IsFailure || evaluate.Invoke());
+        IsSuccess = IsSuccess || evaluate.Invoke();
+        return this;
+    }
+
+    ISuccess ILogic<ISuccess>.OrNot(bool condition)
+    {
+        IsSuccess = IsSuccess || !condition;
+        return this;
+    }
+
+    ISuccess ILogic<ISuccess>.OrNot(Func<bool> evaluate)
+    {
+        IsSuccess = IsSuccess || !evaluate.Invoke();
         return this;
     }
 
@@ -260,18 +248,6 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    IFailure ILogic<IFailure>.OrNot(bool condition)
-    {
-        IsSuccess = !(IsFailure || !condition);
-        return this;
-    }
-
-    IFailure ILogic<IFailure>.OrNot(Func<bool> evaluate)
-    {
-        IsSuccess = !(IsFailure || !evaluate.Invoke());
-        return this;
-    }
-
     IFailure ILogic<IFailure>.AndNot(bool condition)
     {
         IsSuccess = !(IsFailure && !condition);
@@ -281,6 +257,30 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
     IFailure ILogic<IFailure>.AndNot(Func<bool> evaluate)
     {
         IsSuccess = !(IsFailure && !evaluate.Invoke());
+        return this;
+    }
+
+    IFailure ILogic<IFailure>.Or(bool condition)
+    {
+        IsSuccess = !(IsFailure || condition);
+        return this;
+    }
+
+    IFailure ILogic<IFailure>.Or(Func<bool> evaluate)
+    {
+        IsSuccess = !(IsFailure || evaluate.Invoke());
+        return this;
+    }
+
+    IFailure ILogic<IFailure>.OrNot(bool condition)
+    {
+        IsSuccess = !(IsFailure || !condition);
+        return this;
+    }
+
+    IFailure ILogic<IFailure>.OrNot(Func<bool> evaluate)
+    {
+        IsSuccess = !(IsFailure || !evaluate.Invoke());
         return this;
     }
 }
@@ -301,12 +301,6 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
-    public new ISuccess<T> SuccessIfNot(bool condition)
-    {
-        IsSuccess = !condition;
-        return this;
-    }
-
     public new ISuccess<T> SuccessIf(Func<bool> evaluate)
     {
         IsSuccess = evaluate.Invoke();
@@ -319,21 +313,27 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
+    public new ISuccess<T> SuccessIfNot(bool condition)
+    {
+        IsSuccess = !condition;
+        return this;
+    }
+
     public new IFailure<T> FailureIf(bool condition)
     {
         IsSuccess = !condition;
         return this;
     }
 
-    public new IFailure<T> FailureIfNot(bool condition)
-    {
-        IsSuccess = condition;
-        return this;
-    }
-
     public new IFailure<T> FailureIf(Func<bool> evaluate)
     {
         IsSuccess = !evaluate.Invoke();
+        return this;
+    }
+
+    public new IFailure<T> FailureIfNot(bool condition)
+    {
+        IsSuccess = condition;
         return this;
     }
 
@@ -394,18 +394,6 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
-    ISuccess<T> ILogic<ISuccess<T>>.Or(bool condition)
-    {
-        IsSuccess = IsSuccess || condition;
-        return this;
-    }
-
-    ISuccess<T> ILogic<ISuccess<T>>.Or(Func<bool> evaluate)
-    {
-        IsSuccess = IsSuccess || evaluate.Invoke();
-        return this;
-    }
-
     ISuccess<T> ILogic<ISuccess<T>>.And(bool condition)
     {
         IsSuccess = IsSuccess && condition;
@@ -415,18 +403,6 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
     ISuccess<T> ILogic<ISuccess<T>>.And(Func<bool> evaluate)
     {
         IsSuccess = IsSuccess && evaluate.Invoke();
-        return this;
-    }
-
-    ISuccess<T> ILogic<ISuccess<T>>.OrNot(bool condition)
-    {
-        IsSuccess = IsSuccess || !condition;
-        return this;
-    }
-
-    ISuccess<T> ILogic<ISuccess<T>>.OrNot(Func<bool> evaluate)
-    {
-        IsSuccess = IsSuccess || !evaluate.Invoke();
         return this;
     }
 
@@ -442,15 +418,27 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
-    IFailure<T> ILogic<IFailure<T>>.Or(bool condition)
+    ISuccess<T> ILogic<ISuccess<T>>.Or(bool condition)
     {
-        IsSuccess = !(IsFailure || condition);
+        IsSuccess = IsSuccess || condition;
         return this;
     }
 
-    IFailure<T> ILogic<IFailure<T>>.Or(Func<bool> evaluate)
+    ISuccess<T> ILogic<ISuccess<T>>.Or(Func<bool> evaluate)
     {
-        IsSuccess = !(IsFailure || evaluate.Invoke());
+        IsSuccess = IsSuccess || evaluate.Invoke();
+        return this;
+    }
+
+    ISuccess<T> ILogic<ISuccess<T>>.OrNot(bool condition)
+    {
+        IsSuccess = IsSuccess || !condition;
+        return this;
+    }
+
+    ISuccess<T> ILogic<ISuccess<T>>.OrNot(Func<bool> evaluate)
+    {
+        IsSuccess = IsSuccess || !evaluate.Invoke();
         return this;
     }
 
@@ -466,18 +454,6 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
-    IFailure<T> ILogic<IFailure<T>>.OrNot(bool condition)
-    {
-        IsSuccess = !(IsFailure || !condition);
-        return this;
-    }
-
-    IFailure<T> ILogic<IFailure<T>>.OrNot(Func<bool> evaluate)
-    {
-        IsSuccess = !(IsFailure || !evaluate.Invoke());
-        return this;
-    }
-
     IFailure<T> ILogic<IFailure<T>>.AndNot(bool condition)
     {
         IsSuccess = !(IsFailure && !condition);
@@ -487,6 +463,30 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
     IFailure<T> ILogic<IFailure<T>>.AndNot(Func<bool> evaluate)
     {
         IsSuccess = !(IsFailure && !evaluate.Invoke());
+        return this;
+    }
+
+    IFailure<T> ILogic<IFailure<T>>.Or(bool condition)
+    {
+        IsSuccess = !(IsFailure || condition);
+        return this;
+    }
+
+    IFailure<T> ILogic<IFailure<T>>.Or(Func<bool> evaluate)
+    {
+        IsSuccess = !(IsFailure || evaluate.Invoke());
+        return this;
+    }
+
+    IFailure<T> ILogic<IFailure<T>>.OrNot(bool condition)
+    {
+        IsSuccess = !(IsFailure || !condition);
+        return this;
+    }
+
+    IFailure<T> ILogic<IFailure<T>>.OrNot(Func<bool> evaluate)
+    {
+        IsSuccess = !(IsFailure || !evaluate.Invoke());
         return this;
     }
 }
