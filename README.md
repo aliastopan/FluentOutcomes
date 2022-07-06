@@ -92,9 +92,21 @@ IOutcome<string> outcome = Outcome
     .Return("Hello, World");
 ```
 
-**Note**: Please aware that using a long chain of complex boolean operation might resulting unpredicted output. Since the the operation was calculate against the previous condition, the precedence and order of evaluation was ignored. *This may change in future release.*
+**Note**: Please aware that using a long chain of complex boolean operation might resulting unpredicted output. Since the the operation was calculate against the previous condition, the precedence and order of evaluation was ignored. *This may change in the future release.*
 
-It would be more intuitive if **Or()** operation is chain to **FailureIf()** clause, where **And()** is chain to **SuccessIf()**.
+``` csharp
+.SuccessIfNot(true)
+    .Or(true)
+    .And(true)
+    .OrNot(false)
+    .AndNot(true)
+```
+The boolean chain above is equal to:
+``` csharp
+(((!true || true) && true) || !false) && !true
+```
+
+It would be more intuitive and predicatable result if **Or()** operation is chain to **FailureIf()** clause, where **And()** is chain to **SuccessIf()**.
 
 ### Would return **IsFailure** is any of the following string is an empty string.
 ``` csharp
@@ -126,4 +138,16 @@ IOutcome<string> bar = Outcome
         .And(cok == "!")
     .Otherwise()
     .Return($"{foo} {bar} {baz} {qux} {led} {dim} {bam} {cok}");
+```
+
+### Boolean chain breakdown.
+``` csharp
+.SuccessIf(true)        // this boolean chain is equal to result
+    .OrNot(true)
+    .AndNot(false)
+    .And(false)
+    .OrNot(false)
+
+bool result = (((true || !true) && !false) && false) || !false;
+
 ```
