@@ -96,27 +96,27 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return new Outcome<T>();
     }
 
-    public ISuccess SuccessIf(bool expectation)
+    public ISuccess SuccessIf(bool condition)
     {
-        IsSuccess = expectation;
+        IsSuccess = condition;
         return this;
     }
 
-    public ISuccess SuccessIfNot(bool expectation)
+    public ISuccess SuccessIfNot(bool condition)
     {
-        IsSuccess = !expectation;
+        IsSuccess = !condition;
         return this;
     }
 
-    public IFailure FailureIf(bool expectation)
+    public IFailure FailureIf(bool condition)
     {
-        IsSuccess = !expectation;
+        IsSuccess = !condition;
         return this;
     }
 
-    public IFailure FailureIfNot(bool expectation)
+    public IFailure FailureIfNot(bool condition)
     {
-        IsSuccess = expectation;
+        IsSuccess = condition;
         return this;
     }
 
@@ -164,51 +164,51 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
-    ISuccess ILogic<ISuccess>.Or(bool expectation)
+    ISuccess ILogic<ISuccess>.Or(bool condition)
     {
-        IsSuccess = IsSuccess || expectation;
+        IsSuccess = IsSuccess || condition;
         return this;
     }
 
-    ISuccess ILogic<ISuccess>.And(bool expectation)
+    ISuccess ILogic<ISuccess>.And(bool condition)
     {
-        IsSuccess = IsSuccess && expectation;
+        IsSuccess = IsSuccess && condition;
         return this;
     }
 
-    ISuccess ILogic<ISuccess>.OrNot(bool expectation)
+    ISuccess ILogic<ISuccess>.OrNot(bool condition)
     {
-        IsSuccess = IsSuccess || !expectation;
+        IsSuccess = IsSuccess || !condition;
         return this;
     }
 
-    ISuccess ILogic<ISuccess>.AndNot(bool expectation)
+    ISuccess ILogic<ISuccess>.AndNot(bool condition)
     {
-        IsSuccess = IsSuccess && !expectation;
+        IsSuccess = IsSuccess && !condition;
         return this;
     }
 
-    IFailure ILogic<IFailure>.Or(bool expectation)
+    IFailure ILogic<IFailure>.Or(bool condition)
     {
-        IsSuccess = !(IsFailure || expectation);
+        IsSuccess = !(IsFailure || condition);
         return this;
     }
 
-    IFailure ILogic<IFailure>.And(bool expectation)
+    IFailure ILogic<IFailure>.And(bool condition)
     {
-        IsSuccess = !(IsFailure && expectation);
+        IsSuccess = !(IsFailure && condition);
         return this;
     }
 
-    IFailure ILogic<IFailure>.OrNot(bool expectation)
+    IFailure ILogic<IFailure>.OrNot(bool condition)
     {
-        IsSuccess = !(IsFailure || !expectation);
+        IsSuccess = !(IsFailure || !condition);
         return this;
     }
 
-    IFailure ILogic<IFailure>.AndNot(bool expectation)
+    IFailure ILogic<IFailure>.AndNot(bool condition)
     {
-        IsSuccess = !(IsFailure && !expectation);
+        IsSuccess = !(IsFailure && !condition);
         return this;
     }
 }
@@ -223,27 +223,27 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
 
     }
 
-    public new ISuccess<T> SuccessIf(bool expectation)
+    public new ISuccess<T> SuccessIf(bool condition)
     {
-        IsSuccess = expectation;
+        IsSuccess = condition;
         return this;
     }
 
-    public new ISuccess<T> SuccessIfNot(bool expectation)
+    public new ISuccess<T> SuccessIfNot(bool condition)
     {
-        IsSuccess = !expectation;
+        IsSuccess = !condition;
         return this;
     }
 
-    public new IFailure<T> FailureIf(bool expectation)
+    public new IFailure<T> FailureIf(bool condition)
     {
-        IsSuccess = !expectation;
+        IsSuccess = !condition;
         return this;
     }
 
-    public new IFailure<T> FailureIfNot(bool expectation)
+    public new IFailure<T> FailureIfNot(bool condition)
     {
-        IsSuccess = expectation;
+        IsSuccess = condition;
         return this;
     }
 
@@ -298,51 +298,51 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
-    ISuccess<T> ILogic<ISuccess<T>>.Or(bool expectation)
+    ISuccess<T> ILogic<ISuccess<T>>.Or(bool condition)
     {
-        IsSuccess = IsSuccess || expectation;
+        IsSuccess = IsSuccess || condition;
         return this;
     }
 
-    ISuccess<T> ILogic<ISuccess<T>>.And(bool expectation)
+    ISuccess<T> ILogic<ISuccess<T>>.And(bool condition)
     {
-        IsSuccess = IsSuccess && expectation;
+        IsSuccess = IsSuccess && condition;
         return this;
     }
 
-    ISuccess<T> ILogic<ISuccess<T>>.OrNot(bool expectation)
+    ISuccess<T> ILogic<ISuccess<T>>.OrNot(bool condition)
     {
-        IsSuccess = IsSuccess || !expectation;
+        IsSuccess = IsSuccess || !condition;
         return this;
     }
 
-    ISuccess<T> ILogic<ISuccess<T>>.AndNot(bool expectation)
+    ISuccess<T> ILogic<ISuccess<T>>.AndNot(bool condition)
     {
-        IsSuccess = IsSuccess && !expectation;
+        IsSuccess = IsSuccess && !condition;
         return this;
     }
 
-    IFailure<T> ILogic<IFailure<T>>.Or(bool expectation)
+    IFailure<T> ILogic<IFailure<T>>.Or(bool condition)
     {
-        IsSuccess = !(IsFailure || expectation);
+        IsSuccess = !(IsFailure || condition);
         return this;
     }
 
-    IFailure<T> ILogic<IFailure<T>>.And(bool expectation)
+    IFailure<T> ILogic<IFailure<T>>.And(bool condition)
     {
-        IsSuccess = !(IsFailure && expectation);
+        IsSuccess = !(IsFailure && condition);
         return this;
     }
 
-    IFailure<T> ILogic<IFailure<T>>.OrNot(bool expectation)
+    IFailure<T> ILogic<IFailure<T>>.OrNot(bool condition)
     {
-        IsSuccess = !(IsFailure || !expectation);
+        IsSuccess = !(IsFailure || !condition);
         return this;
     }
 
-    IFailure<T> ILogic<IFailure<T>>.AndNot(bool expectation)
+    IFailure<T> ILogic<IFailure<T>>.AndNot(bool condition)
     {
-        IsSuccess = !(IsFailure && !expectation);
+        IsSuccess = !(IsFailure && !condition);
         return this;
     }
 }
