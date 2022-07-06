@@ -108,6 +108,18 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
         return this;
     }
 
+    public ISuccess SuccessIf(Func<bool> condition)
+    {
+        IsSuccess = condition.Invoke();
+        return this;
+    }
+
+    public ISuccess SuccessIfNot(Func<bool> condition)
+    {
+        IsSuccess = !condition.Invoke();
+        return this;
+    }
+
     public IFailure FailureIf(bool condition)
     {
         IsSuccess = !condition;
@@ -117,6 +129,18 @@ public class Outcome : IOutcome, IExpect, ISuccess, IFailure, IOtherwise, IRetur
     public IFailure FailureIfNot(bool condition)
     {
         IsSuccess = condition;
+        return this;
+    }
+
+    public IFailure FailureIf(Func<bool> condition)
+    {
+        IsSuccess = !condition.Invoke();
+        return this;
+    }
+
+    public IFailure FailureIfNot(Func<bool> condition)
+    {
+        IsSuccess = condition.Invoke();
         return this;
     }
 
@@ -235,6 +259,18 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
         return this;
     }
 
+    public new ISuccess<T> SuccessIf(Func<bool> condition)
+    {
+        IsSuccess = condition.Invoke();
+        return this;
+    }
+
+    public new ISuccess<T> SuccessIfNot(Func<bool> condition)
+    {
+        IsSuccess = !condition.Invoke();
+        return this;
+    }
+
     public new IFailure<T> FailureIf(bool condition)
     {
         IsSuccess = !condition;
@@ -244,6 +280,18 @@ internal class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFail
     public new IFailure<T> FailureIfNot(bool condition)
     {
         IsSuccess = condition;
+        return this;
+    }
+
+    public new IFailure<T> FailureIf(Func<bool> condition)
+    {
+        IsSuccess = !condition.Invoke();
+        return this;
+    }
+
+    public new IFailure<T> FailureIfNot(Func<bool> condition)
+    {
+        IsSuccess = condition.Invoke();
         return this;
     }
 

@@ -28,14 +28,13 @@ public class AppService : IAppService
         string? dim = "";
         string? cok = "";
 
+        Func<bool> xFunc = () => foo == "";
+
         var x = Outcome
-            .Expect()
-            .SuccessIf(true)
-                .And(true)
-                .And(true)
-                .AndNot(false)
+            .Expect<string>()
+            .SuccessIf(xFunc)
             .Otherwise()
-            .Return();
+            .Return("");
 
         var result = x.IsSuccess ? "Success" : "Failure";
         _logger.LogInformation($"Outcome: {result}");
