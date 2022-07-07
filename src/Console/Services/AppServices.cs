@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using FluentOutcomes;
@@ -17,32 +18,44 @@ public class AppService : IAppService
 
     public void Run()
     {
-        _logger.LogInformation("Starting...");
+        _logger.LogWarning("Starting...");
 
-        string? foo = "";
-        string? bar = "";
-        string? baz = "";
-        string? qux = "";
-        string? led = "A";
-        string? bam = "";
-        string? dim = "";
-        string? cok = "";
+        // // string? foo = "";
+        // // string? bar = "";
+        // // string? baz = "";
+        // // string? qux = "";
+        // // string? led = "A";
+        // // string? bam = "";
+        // // string? dim = "";
+        // // string? cok = "";
 
-        Func<bool> xFunc = () => foo == "";
-
-        var x = Outcome
-            .Expect<string>()
-            .SuccessIf(() => {
-                var evaluate = qux != "" || dim != "";
-                return evaluate;
-            })
+        var qux = Outcome
+            .Expect()
+            .SuccessIf(true)
+                .Or(true)
+                .And(true)
+                .And(false)
+                .Or(true)
             .Otherwise()
-            .Return("");
+            .Return();
 
-        var result = x.IsSuccess ? "Success" : "Failure";
-        _logger.LogInformation($"Outcome: {result}");
+        _logger.LogInformation($"qux: {qux.IsSuccess}");
 
 
+        // var qqq = (true && false) || true; // false
+        // var fff = true && (false || true); // true
+
+        var foo = Outcome
+            .Expect()
+            .SuccessIf(true)
+                .Or(true)
+                .And(() => {
+                    return (true && false) || true;
+                })
+            .Otherwise()
+            .Return();
+
+        _logger.LogInformation($"foo: {foo.IsSuccess}");
 
 
 
@@ -61,7 +74,7 @@ public class AppService : IAppService
 
 
 
-        string surpress = $"{foo} {bar} {baz} {qux} {led} {dim} {bam} {cok}";
-        surpress = "";
+        // string surpress = $"{foo} {bar} {baz} {qux} {led} {dim} {bam} {cok}";
+        // surpress = "";
     }
 }
