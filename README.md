@@ -8,7 +8,7 @@ FluentOutcomes is a lightweight .NET library to wrap a returning object while ha
 ## NuGet Package
 
 ```
-    dotnet add package FluentOutcomes --version 2.0.1
+    dotnet add package FluentOutcomes --version 2.1.0-beta
 ```
 
 ## Overview
