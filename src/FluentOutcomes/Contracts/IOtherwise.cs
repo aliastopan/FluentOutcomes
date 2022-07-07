@@ -1,12 +1,12 @@
-namespace FluentOutcomes.Contracts;
-
-public interface IOtherwise
+namespace FluentOutcomes.Contracts
 {
-    IReturn Otherwise();
-}
+    public interface IOtherwise
+    {
+        IReturn Otherwise();
+    }
 
-public interface IOtherwise<T>
-{
-    IReturn<T> Otherwise();
+    public interface IOtherwise<T>
+    {
+        IReturn<T> Otherwise();
+    }
 }
-

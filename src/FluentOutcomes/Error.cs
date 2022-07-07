@@ -1,17 +1,20 @@
-namespace FluentOutcomes;
+using System;
 
-public sealed class Error
+namespace FluentOutcomes
 {
-    public Exception Exception { get; set; }
-
-    public Error()
+    public sealed class Error
     {
-        string message = "Unspecified error has occurred.";
-        Exception = new Exception(message);
-    }
+        public Exception Exception { get; set; }
 
-    public Error(Exception exception)
-    {
-        this.Exception = exception;
+        public Error()
+        {
+            string message = "Unspecified error has occurred.";
+            Exception = new Exception(message);
+        }
+
+        public Error(Exception exception)
+        {
+            this.Exception = exception;
+        }
     }
 }

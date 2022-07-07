@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <RootNamespace>FluentOutcomes</RootNamespace>
     <AssemblyName>FluentOutcomes</AssemblyName>
@@ -11,6 +10,7 @@
     <PackageReleaseNotes>
     v2.1.0
       - ADDED: Add delegate (parameter) support of boolean operation clause.
+      - ADDED: Add net5.0 backward compatibility.
     v2.0.1
       - Just patched things up.
     v2.0.0

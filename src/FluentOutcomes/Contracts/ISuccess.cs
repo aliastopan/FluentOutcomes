@@ -1,15 +1,18 @@
-namespace FluentOutcomes.Contracts;
+using System;
 
-public interface ISuccess : ILogic<ISuccess>
+namespace FluentOutcomes.Contracts
 {
-    IReturn Otherwise();
-    IReturn Otherwise(Error error);
-    IReturn Otherwise(Action<Error> error);
-}
+    public interface ISuccess : ILogic<ISuccess>
+    {
+        IReturn Otherwise();
+        IReturn Otherwise(Error error);
+        IReturn Otherwise(Action<Error> error);
+    }
 
-public interface ISuccess<T> : ILogic<ISuccess<T>>
-{
-    IReturn<T> Otherwise();
-    IReturn<T> Otherwise(Error error);
-    IReturn<T> Otherwise(Action<Error> error);
+    public interface ISuccess<T> : ILogic<ISuccess<T>>
+    {
+        IReturn<T> Otherwise();
+        IReturn<T> Otherwise(Error error);
+        IReturn<T> Otherwise(Action<Error> error);
+    }
 }
