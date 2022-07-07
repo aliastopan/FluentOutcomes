@@ -391,7 +391,13 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(T value)
         {
-            Value = value;
+            Value = IsSuccess ? value : default!;
+            return this;
+        }
+
+        public IOutcome<T> Return(Func<T> value)
+        {
+            Value = IsSuccess ? value.Invoke() : default!;
             return this;
         }
 
@@ -488,12 +494,6 @@ namespace FluentOutcomes
         IFailure<T> ILogic<IFailure<T>>.OrNot(Func<bool> evaluate)
         {
             IsSuccess = !(IsFailure || !evaluate.Invoke());
-            return this;
-        }
-
-        public IOutcome<T> Return(Func<T> value)
-        {
-            Value = value.Invoke();
             return this;
         }
     }

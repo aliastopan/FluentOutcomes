@@ -22,12 +22,20 @@ public class AppService : IAppService
 
         var x = Outcome
             .Expect<Mock>()
-            .SuccessIf(true)
+            .SuccessIf(() => {
+                bool condition = true && (false || false);
+                return condition;
+            })
+                .And(() => {
+                    return true || true || false;
+                })
             .Otherwise()
             .Return(() => {
                 return new Mock();
             });
 
+        var str = x.IsSuccess ? "Success" : "Failure";
+        _logger.LogWarning($"???: {str}");
         _logger.LogWarning($"Mock: {x.Value.Message}");
 
     }
