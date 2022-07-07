@@ -490,5 +490,11 @@ namespace FluentOutcomes
             IsSuccess = !(IsFailure || !evaluate.Invoke());
             return this;
         }
+
+        public IOutcome<T> Return(Func<T> value)
+        {
+            Value = value.Invoke();
+            return this;
+        }
     }
 }
