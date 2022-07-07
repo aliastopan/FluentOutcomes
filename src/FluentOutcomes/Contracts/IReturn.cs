@@ -8,7 +8,7 @@ namespace FluentOutcomes.Contracts
 
     public interface IReturn<T>
     {
-        IOutcome<T> Return(T value);
-        IOutcome<T> Return(Func<T> value);
+        IOutcome<T> Return(T value, bool overwrite = false);
+        IOutcome<T> Return(Func<T> value, bool overwrite = false);
     }
 }

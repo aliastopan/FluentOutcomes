@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using FluentOutcomes;
@@ -20,6 +21,8 @@ public class AppService : IAppService
     {
         _logger.LogWarning("Starting...");
 
+        var mock = new Mock();
+
         var x = Outcome
             .Expect<Mock>()
             .SuccessIf(() => {
@@ -30,9 +33,7 @@ public class AppService : IAppService
                     return true || true || false;
                 })
             .Otherwise()
-            .Return(() => {
-                return new Mock();
-            });
+            .Return(mock, overwrite: true);
 
         var str = x.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"???: {str}");

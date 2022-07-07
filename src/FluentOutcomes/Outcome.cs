@@ -389,14 +389,26 @@ namespace FluentOutcomes
             return this;
         }
 
-        public IOutcome<T> Return(T value)
+        public IOutcome<T> Return(T value, bool overwrite = false)
         {
+            if(overwrite)
+            {
+                Value = value;
+                return this;
+            }
+
             Value = IsSuccess ? value : default!;
             return this;
         }
 
-        public IOutcome<T> Return(Func<T> value)
+        public IOutcome<T> Return(Func<T> value, bool overwrite = false)
         {
+            if(overwrite)
+            {
+                Value = value.Invoke();
+                return this;
+            }
+
             Value = IsSuccess ? value.Invoke() : default!;
             return this;
         }
