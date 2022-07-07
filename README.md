@@ -1,4 +1,7 @@
 # FluentOutcomes
+![Nuget](https://img.shields.io/nuget/v/FluentOutcomes)
+![Nuget](https://img.shields.io/nuget/dt/FluentOutcomes?style=flat)
+![GitHub](https://img.shields.io/github/license/einharan/fluentoutcomes)
 
 FluentOutcomes is a lightweight .NET library to wrap a returning object while handling the potential errors that comes with it without throwing an exception and to provide a fluent and declarative way of dealing with `if-else` statement.
 
