@@ -8,7 +8,7 @@ FluentOutcomes is a lightweight .NET library to wrap a returning object while ha
 ## NuGet Package
 
 ```
-    dotnet add package FluentOutcomes --version 2.1.0-beta
+    dotnet add package FluentOutcomes --version 2.1.0
 ```
 
 ## Overview
@@ -65,6 +65,17 @@ public IOutcome<User> ExpectGetUser(string username)
 }
 ```
 
+### Overwrite return value
+By default when the outcome `IsFailure` it will return `T Value` as `default!` but it can be overwritten to return the value regardless the result.
+``` csharp
+var message = "Bar";
+var foo = Outcome
+    .Expect<string>()
+    .FailureIf(message == "Bar")        // fail
+    .Otherwise()
+    .Return(message, overwrite: true);  // keep return "Bar" regardless
+```
+
 ### Immediate return **OK** and **Fail**
 ``` csharp
 var foo = Outcome.Ok();
@@ -95,7 +106,7 @@ IOutcome<string> outcome = Outcome
     .Return("Hello, World");
 ```
 
-**Note**: Please aware that using a long chain of complex boolean operation might resulting unpredicted output. Since the the operation was calculate against the previous condition, the precedence and order of evaluation was ignored. *This may change in the future release.*
+**Note**: Please aware that using a long chain of complex boolean operation might resulting unpredicted output. Since the the operation was calculate against the previous condition, the precedence and order of evaluation was ignored. As for that scenario you can use [anonymous method](#func-delegate) instead.
 
 ``` csharp
 .SuccessIfNot(true)
@@ -153,4 +164,30 @@ IOutcome<string> bar = Outcome
 
 bool result = (((true || !true) && !false) && false) || !false;
 
+```
+
+### Func delegate
+In the case of complex boolean operation, you can use lamda expression as argument.
+``` csharp
+IOutcome<string> foo = Outcome
+    .Expect<string>()
+    .SuccessIf(() => {
+        bool condition = true && (false || false);
+        return condition;
+    })
+        .And(() => {
+            return (true && true) || false;
+        })
+    .Otherwise()
+    .Return("Hello, World");
+```
+
+``` csharp
+return Outcome
+    .Expect<string>()
+    .SuccessIf(true)
+    .Otherwise()
+    .Return(() => {
+        return "I don't know why would you return something like this, but here you go.";
+    });
 ```

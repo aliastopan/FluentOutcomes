@@ -21,23 +21,32 @@ public class AppService : IAppService
     {
         _logger.LogWarning("Starting...");
 
-        var mock = new Mock();
+        // var mock = new Mock();
 
-        var x = Outcome
-            .Expect<Mock>()
-            .SuccessIf(() => {
-                bool condition = true && (false || false);
-                return condition;
-            })
-                .And(() => {
-                    return true || true || false;
-                })
+        // IOutcome<string> foo = Outcome
+        //     .Expect<string>()
+        //     .SuccessIf(() => {
+        //         bool condition = true && (false || false);
+        //         return condition;
+        //     })
+        //         .And(() => {
+        //             return true || true || false;
+        //         })
+        //     .Otherwise()
+        //     .Return("Hello, World", overwrite: true);
+
+        var message = "Bar";
+        var foo = Outcome
+            .Expect<string>()
+            .SuccessIf(true)
             .Otherwise()
-            .Return(mock, overwrite: true);
+            .Return(() => {
+                return "I don't know why would you do this, but here you go.";
+            });
 
-        var str = x.IsSuccess ? "Success" : "Failure";
+        var str = foo.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"???: {str}");
-        _logger.LogWarning($"Mock: {x.Value.Message}");
+        _logger.LogWarning($"Mock: {foo.Value}");
 
     }
 }

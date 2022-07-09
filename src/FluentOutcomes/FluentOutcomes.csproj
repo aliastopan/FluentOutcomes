@@ -6,9 +6,9 @@
     <AssemblyName>FluentOutcomes</AssemblyName>
     <PackageId>FluentOutcomes</PackageId>
     <Description>A lightweight wrapper return type object with declarative and fluent if-else statement for .NET</Description>
-    <Version>2.1.0-beta</Version>
+    <Version>2.1.0</Version>
     <PackageReleaseNotes>
-    v2.1.0-beta
+    v2.1.0
       - ADDED: Add delegate (parameter) support of boolean operation and Return() clause.
       - ADDED: Add option to overwrite the default! on Return() clause.
       - ADDED: Add net5.0 backward compatibility.
