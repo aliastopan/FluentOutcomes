@@ -57,32 +57,41 @@ namespace FluentOutcomes
             };
         }
 
-        public static IOutcome<T> Fail<T>(T value)
+        public static IOutcome<T> Fail<T>()
         {
             return new Outcome<T>(){
                 IsSuccess = false,
-                Value = value,
+                Value = default!,
                 Error = new Error()
             };
         }
 
-        public static IOutcome<T> Fail<T>(T value, Error error)
+        public static IOutcome<T> Fail<T>(T value, bool overwrite = false)
         {
             return new Outcome<T>(){
                 IsSuccess = false,
-                Value = value,
+                Value = overwrite ? value : default!,
+                Error = new Error()
+            };
+        }
+
+        public static IOutcome<T> Fail<T>(T value, Error error, bool overwrite = false)
+        {
+            return new Outcome<T>(){
+                IsSuccess = false,
+                Value = overwrite ? value : default!,
                 Error = error
             };
         }
 
-        public static IOutcome<T> Fail<T>(T value, Action<Error> error)
+        public static IOutcome<T> Fail<T>(T value, Action<Error> error, bool overwrite = false)
         {
             Error err = new();
             error?.Invoke(err);
 
             return new Outcome<T>(){
                 IsSuccess = false,
-                Value = value,
+                Value = overwrite ? value : default!,
                 Error = err
             };
         }

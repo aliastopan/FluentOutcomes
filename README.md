@@ -79,13 +79,16 @@ var foo = Outcome
 ### Immediate return **OK** and **Fail**
 ``` csharp
 var foo = Outcome.Ok();
-var bar = Outcome.Ok<string>("OK");
+var bar = Outcome.Ok<string>("Hello, World");
 var baz = Outcome.Fail();
 var qux = Outcome.Fail(new Error());
 var led = Outcome.Fail(error => { error.Exception = new Exception(); });
-var bam = Outcome.Fail<string>("Fail");
-var dim = Outcome.Fail<string>("Fail", new Error());
-var cok = Outcome.Fail<string>("Fail", error => { error.Exception = new Exception(); });
+var bam = Outcome.Fail<string>();
+var dim = Outcome.Fail<string>("Hello, World", overwrite: false);
+var cok = Outcome.Fail<string>("Hello, World", new Error(), overwrite: false);
+var kar = Outcome.Fail<string>("Hello, World", error => {
+            error.Exception = new Exception();
+        }, overwrite: false);
 ```
 ## Fluent Boolean Operation
 

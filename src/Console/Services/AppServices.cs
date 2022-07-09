@@ -35,9 +35,11 @@ public class AppService : IAppService
             .Otherwise()
             .Return("Hello, World", overwrite: true);
 
-        var str = foo.IsSuccess ? "Success" : "Failure";
-        _logger.LogWarning($"???: {str}");
-        _logger.LogWarning($"Mock: {foo.Value}");
+        var z = Outcome.Fail<int>(10);
+
+        var str = z.IsSuccess ? "Success" : "Failure";
+        _logger.LogWarning($"Result: {str}");
+        _logger.LogWarning($"Mock: {z.Value}");
 
     }
 }
