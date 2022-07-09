@@ -8,7 +8,7 @@ FluentOutcomes is a lightweight .NET library to wrap a returning object while ha
 ## NuGet Package
 
 ```
-    dotnet add package FluentOutcomes --version 2.1.0
+dotnet add package FluentOutcomes --version 2.1.0
 ```
 
 ## Overview
@@ -152,18 +152,6 @@ IOutcome<string> bar = Outcome
         .And(cok == "!")
     .Otherwise()
     .Return($"{foo} {bar} {baz} {qux} {led} {dim} {bam} {cok}");
-```
-
-### Boolean chain breakdown.
-``` csharp
-.SuccessIf(true)        // this boolean chain is equal to result
-    .OrNot(true)
-    .AndNot(false)
-    .And(false)
-    .OrNot(false)
-
-bool result = (((true || !true) && !false) && false) || !false;
-
 ```
 
 ### Func delegate
