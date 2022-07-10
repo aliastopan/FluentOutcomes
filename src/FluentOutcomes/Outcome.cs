@@ -20,8 +20,8 @@ namespace FluentOutcomes
 
         public static void ConfigureSettings(Action<OutcomeSettingOptions> options)
         {
-            OutcomeSettingOptions settingOptions = new();
-            options?.Invoke(settingOptions);
+            var settings = new OutcomeSettingOptions();
+            options?.Invoke(settings);
         }
 
         protected void ApplyMetadataSetting()
