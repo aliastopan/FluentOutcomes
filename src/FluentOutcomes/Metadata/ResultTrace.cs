@@ -18,5 +18,34 @@ namespace FluentOutcomes.Metadata
         {
             Metadata = new Dictionary<string, object>();
         }
+
+        internal void AssertMetadata(string metadataName, object metadataValue, bool isSuccess, AssertLevel assertLevel = AssertLevel.Default)
+        {
+
+            switch(assertLevel)
+            {
+                case AssertLevel.OnlyFailure:
+                {
+                    if(isSuccess)
+                        break;
+
+                    Metadata.Add(metadataName, metadataValue);
+                    break;
+                }
+                case AssertLevel.OnlySuccess:
+                {
+                    if(!isSuccess)
+                        break;
+
+                    Metadata.Add(metadataName, metadataValue);
+                    break;
+                }
+                default:
+                {
+                    Metadata.Add(metadataName, metadataValue);
+                    break;
+                }
+            }
+        }
     }
 }

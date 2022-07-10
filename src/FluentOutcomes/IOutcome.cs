@@ -9,13 +9,13 @@ namespace FluentOutcomes
         ResultTrace ResultTrace { get; }
         bool HasMetadata { get; }
 
-        IOutcome WithMetadata(string metadataName, object metadataValue);
+        IOutcome WithMetadata(string metadataName, object metadataValue, AssertLevel assertLevel = AssertLevel.Default);
     }
 
     public interface IOutcome<T> : IOutcome
     {
         T Value { get; }
 
-        new IOutcome<T> WithMetadata(string metadataName, object metadataValue);
+        new IOutcome<T> WithMetadata(string metadataName, object metadataValue, AssertLevel assertLevel = AssertLevel.Default);
     }
 }

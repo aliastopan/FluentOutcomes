@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using FluentOutcomes;
+using FluentOutcomes.Metadata;
 using Console.Models;
 
 namespace Console.Services;
@@ -23,26 +23,18 @@ public class AppService : IAppService
 
         Outcome.ConfigureSettings(options =>
         {
-            options.SetAllCorrectMessage("All Correct");
-            options.SetDefaultErrorMessage("Critical Error");
+            options.SetAllCorrectMessage("OK.");
+            options.SetDefaultErrorMessage("Oops...");
             options.Metadata.AddStatusResult();
             options.Metadata.AddVerdict();
             options.Metadata.AddGlobalMetadata("Preface", 100);
-
-            // options.AddMetadataStatusResult();
-            // options.AddMetadataVerdict();
-            // options.AddMetadataGlobal("Preface", 100);
-            // options.DisablePrefaceMetadata();
-            // setting.AddPrefaceMetadata("Custom1", 5);
-            // setting.AddPrefaceMetadata("Custom2", "This is Preface");
         });
 
         var mock = new Mock();
 
         var x = Outcome
             .Expect<Mock>()
-            .FailureIf(true)
-                .Or(true)
+            .FailureIf(false)
             .WithError(error => {
                 string message = "Something went wrong.";
                 error.Exception = new Exception(message);
@@ -50,7 +42,9 @@ public class AppService : IAppService
             .Otherwise()
             .Return(mock, overwrite: true)
                 .WithMetadata("Expected", mock)
-                .WithMetadata("Timestamp", DateTime.Now);
+                .WithMetadata("Timestamp", DateTime.Now)
+                .WithMetadata("OnlyFailure", "Fail?", AssertLevel.OnlyFailure)
+                .WithMetadata("OnlySuccess", "Success?", AssertLevel.OnlySuccess);
 
         var str = x.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");

@@ -226,9 +226,9 @@ namespace FluentOutcomes
             return this;
         }
 
-        public IOutcome WithMetadata(string metadataName, object metadataValue)
+        public IOutcome WithMetadata(string metadataName, object metadataValue, AssertLevel assertLevel = AssertLevel.Default)
         {
-            ResultTrace.Metadata.Add(metadataName, metadataValue);
+            ResultTrace.AssertMetadata(metadataName, metadataValue, IsSuccess, assertLevel);
             return this;
         }
 
@@ -466,9 +466,9 @@ namespace FluentOutcomes
             return this;
         }
 
-        public new IOutcome<T> WithMetadata(string metadataName, object metadataValue)
+        public new IOutcome<T> WithMetadata(string metadataName, object metadataValue, AssertLevel assertLevel = AssertLevel.Default)
         {
-            ResultTrace.Metadata.Add(metadataName, metadataValue);
+            ResultTrace.AssertMetadata(metadataName, metadataValue, IsSuccess, assertLevel);
             return this;
         }
 
