@@ -8,11 +8,11 @@ namespace FluentOutcomes.Settings
         private static readonly Lazy<OutcomeSettings> lazy = new(() => new OutcomeSettings());
         public static OutcomeSettings Instance => lazy.Value;
 
-        public string AllCorrectMessage { get; set; } = "OK.";
-        public string DefaultErrorMessage { get; set; } = "Unspecified error has occurred.";
-        public Dictionary<string, object> PrefaceMetadata { get; set; }
-        public bool UsingStatusResultMetadata { get; set; } = false;
-        public bool UsingVerdictMetadata { get; set; } = false;
+        public string AllCorrectMessage { get; internal set; } = "OK.";
+        public string DefaultErrorMessage { get; internal set; } = "Unspecified error has occurred.";
+        public Dictionary<string, object> PrefaceMetadata { get; internal set; }
+        public bool UsingStatusResultMetadata { get; internal set; } = false;
+        public bool UsingVerdictMetadata { get; internal set; } = false;
 
         private OutcomeSettings()
         {
