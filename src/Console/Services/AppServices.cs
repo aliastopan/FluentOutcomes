@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using FluentOutcomes;
 using FluentOutcomes.Metadata;
+using FluentOutcomes.Settings;
 using Console.Models;
 
 namespace Console.Services;
@@ -19,15 +20,20 @@ public class AppService : IAppService
 
     public void Run()
     {
+        // var x = new OutcomeSettingOptions();
+
         _logger.LogWarning("Starting...");
 
-        Outcome.ConfigureSettings(options =>
+        Outcome.ConfigureSettings(config =>
         {
-            options.SetAllCorrectMessage("Yay!");
-            options.SetDefaultErrorMessage("Oops...");
-            options.Metadata.AddStatusResult();
-            options.Metadata.AddVerdict();
-            options.Metadata.AddGlobalMetadata("Preface", 100);
+            config.SetAllCorrectMessage("Yay!");
+            config.SetDefaultErrorMessage("Oops...");
+            config.Metadata(stack =>
+            {
+                stack.AddStatusResult();
+                stack.AddVerdict();
+                stack.AddGlobalMetadata("Preface", "Global Metadata");
+            });
         });
 
         var mock = new Mock();

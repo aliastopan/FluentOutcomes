@@ -4,11 +4,9 @@ namespace FluentOutcomes.Settings
 {
     public class OutcomeSettingOptions
     {
-        public MetadataSettings Metadata { get; init; }
-
         internal OutcomeSettingOptions()
         {
-            Metadata = new MetadataSettings();
+
         }
 
         public void SetAllCorrectMessage(string message)
@@ -33,19 +31,10 @@ namespace FluentOutcomes.Settings
             OutcomeSettings.Instance.DefaultErrorMessage = message;
         }
 
-        // public void AddStatusResultMetadata()
-        // {
-        //     OutcomeSettings.Instance.UsingStatusResultMetadata = true;
-        // }
-
-        // public void AddVerdictMetadata()
-        // {
-        //     OutcomeSettings.Instance.UsingVerdictMetadata = true;
-        // }
-
-        // public void AddGlobalMetadata(string metadataName, object metadataValue)
-        // {
-        //     OutcomeSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
-        // }
+        public void Metadata(Action<MetadataSettingOptions> options)
+        {
+            MetadataSettingOptions settings = new MetadataSettingOptions();
+            options?.Invoke(settings);
+        }
     }
 }

@@ -1,7 +1,12 @@
 namespace FluentOutcomes.Settings
 {
-    public sealed class MetadataSettings
+    public sealed class MetadataSettingOptions
     {
+        internal MetadataSettingOptions()
+        {
+
+        }
+
         public void AddStatusResult()
         {
             OutcomeSettings.Instance.UsingStatusResultMetadata = true;
