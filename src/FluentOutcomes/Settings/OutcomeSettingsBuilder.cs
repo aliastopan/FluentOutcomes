@@ -24,5 +24,10 @@ namespace FluentOutcomes.Settings
 
             OutcomeSettings.Instance.DefaultErrorMessage = message;
         }
+
+        public void DisablePrefaceMetadata()
+        {
+            OutcomeSettings.Instance.UsingPrefaceMetadata = false;
+        }
     }
 }

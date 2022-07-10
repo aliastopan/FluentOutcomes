@@ -205,6 +205,7 @@ namespace FluentOutcomes
 
         public IOutcome Return()
         {
+            PrefaceMetadata();
             return this;
         }
 
@@ -308,6 +309,15 @@ namespace FluentOutcomes
         {
             IsSuccess = !(IsFailure || !evaluate.Invoke());
             return this;
+        }
+
+        protected void PrefaceMetadata()
+        {
+            if(OutcomeSettings.Instance.UsingPrefaceMetadata)
+            {
+                ResultTrace.Metadata.Add("Status", IsSuccess ? "Success" : "Failed");
+                ResultTrace.Metadata.Add("Verdict", ResultTrace.Verdict);
+            }
         }
     }
 
@@ -422,6 +432,8 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(T value, bool overwrite = false)
         {
+            PrefaceMetadata();
+
             if(overwrite)
             {
                 Value = value;
@@ -434,6 +446,8 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(Func<T> value, bool overwrite = false)
         {
+            PrefaceMetadata();
+
             if(overwrite)
             {
                 Value = value.Invoke();

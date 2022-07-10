@@ -23,16 +23,17 @@ public class AppService : IAppService
 
         Outcome.ConfigureSettings(config =>
         {
-            config.AllCorrectMessage("Status 200 : OK");
+            config.AllCorrectMessage("All Correct");
             config.DefaultErrorMessage("Critical Error");
+            // config.DisablePrefaceMetadata();
         });
 
         var mock = new Mock();
 
         var x = Outcome
             .Expect<Mock>()
-            .FailureIf(false)
-                .Or(false)
+            .FailureIf(true)
+                .Or(true)
             .WithError(error => {
                 string message = "Something went wrong.";
                 error.Exception = new Exception(message);
@@ -45,7 +46,7 @@ public class AppService : IAppService
         var str = x.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");
         _logger.LogWarning($"Verdict: {x.ResultTrace.Verdict}");
-        _logger.LogWarning($"Mock: {x.Value.Message}");
+        _logger.LogWarning($"Mock: {x.Value}");
 
         if(x.HasMetadata)
         {
