@@ -14,7 +14,7 @@ namespace FluentOutcomes.Metadata
                 : Error.Exception.Message;
         }
 
-        public ResultTrace()
+        internal ResultTrace()
         {
             Metadata = new Dictionary<string, object>();
         }
