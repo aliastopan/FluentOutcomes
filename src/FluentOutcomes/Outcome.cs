@@ -1,6 +1,7 @@
 using System;
 using FluentOutcomes.Contracts;
 using FluentOutcomes.Metadata;
+using FluentOutcomes.Settings;
 
 namespace FluentOutcomes
 {
@@ -14,6 +15,12 @@ namespace FluentOutcomes
         protected Outcome()
         {
             ResultTrace = new ResultTrace();
+        }
+
+        public static void ConfigureSettings(Action<OutcomeSettingsBuilder> configuration)
+        {
+            OutcomeSettingsBuilder settingsBuilder = new();
+            configuration?.Invoke(settingsBuilder);
         }
 
         public static IOutcome Ok()

@@ -1,4 +1,5 @@
 using System;
+using FluentOutcomes.Settings;
 
 namespace FluentOutcomes.Metadata
 {
@@ -8,7 +9,7 @@ namespace FluentOutcomes.Metadata
 
         public Error()
         {
-            string message = "Unspecified error has occurred.";
+            string message = OutcomeSettings.Instance.DefaultErrorMessage;
             Exception = new Exception(message);
         }
 

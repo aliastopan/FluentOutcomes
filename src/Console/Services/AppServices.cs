@@ -21,11 +21,18 @@ public class AppService : IAppService
     {
         _logger.LogWarning("Starting...");
 
+        Outcome.ConfigureSettings(config =>
+        {
+            config.AllCorrectMessage("Status 200 : OK");
+            config.DefaultErrorMessage("Critical Error");
+        });
+
         var mock = new Mock();
 
         var x = Outcome
             .Expect<Mock>()
             .FailureIf(false)
+                .Or(false)
             .WithError(error => {
                 string message = "Something went wrong.";
                 error.Exception = new Exception(message);
@@ -37,6 +44,7 @@ public class AppService : IAppService
 
         var str = x.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");
+        _logger.LogWarning($"Verdict: {x.ResultTrace.Verdict}");
         _logger.LogWarning($"Mock: {x.Value.Message}");
 
         if(x.HasMetadata)
