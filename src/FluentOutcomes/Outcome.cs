@@ -9,9 +9,7 @@ namespace FluentOutcomes
         public bool IsSuccess { get; protected set; }
         public bool IsFailure => !IsSuccess;
         public ResultTrace ResultTrace { get; protected set; }
-
-        // public Error? Error { get; protected set; }
-        // public string Verdict => Error is null ? "OK" : Error.Exception.Message;
+        public bool HasMetadata => ResultTrace.Metadata.Count > 0;
 
         protected Outcome()
         {
@@ -200,6 +198,12 @@ namespace FluentOutcomes
 
         public IOutcome Return()
         {
+            return this;
+        }
+
+        public IOutcome WithMetadata(string metadataName, object metadataValue)
+        {
+            ResultTrace.Metadata.Add(metadataName, metadataValue);
             return this;
         }
 
@@ -430,6 +434,12 @@ namespace FluentOutcomes
             }
 
             Value = IsSuccess ? value.Invoke() : default!;
+            return this;
+        }
+
+        public new IOutcome<T> WithMetadata(string metadataName, object metadataValue)
+        {
+            ResultTrace.Metadata.Add(metadataName, metadataValue);
             return this;
         }
 

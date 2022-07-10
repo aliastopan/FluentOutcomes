@@ -23,23 +23,30 @@ public class AppService : IAppService
 
         var mock = new Mock();
 
-        IOutcome<string> foo = Outcome
-            .Expect<string>()
-            .SuccessIf(() => {
-                bool condition = true && (false || false);
-                return condition;
+        var x = Outcome
+            .Expect<Mock>()
+            .FailureIf(false)
+            .WithError(error => {
+                string message = "Something went wrong.";
+                error.Exception = new Exception(message);
             })
-                .And(() => {
-                    return true || true || false;
-                })
             .Otherwise()
-            .Return("Hello, World", overwrite: true);
+            .Return(mock, overwrite: true)
+                .WithMetadata("Expected", mock)
+                .WithMetadata("Timestamp", DateTime.Now);
 
-        var z = Outcome.Fail<int>(10);
-
-        var str = z.IsSuccess ? "Success" : "Failure";
+        var str = x.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");
-        _logger.LogWarning($"Mock: {z.Value}");
+        _logger.LogWarning($"Mock: {x.Value.Message}");
+
+        if(x.HasMetadata)
+        {
+            for (int i = 0; i < x.ResultTrace.Metadata.Count; i++)
+            {
+                var metadata = x.ResultTrace.Metadata.ElementAt(i);
+                _logger.LogCritical($"[{i+1}]: {metadata}");
+            }
+        }
 
     }
 }
