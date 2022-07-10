@@ -18,10 +18,10 @@ namespace FluentOutcomes
             ResultTrace = new ResultTrace();
         }
 
-        public static void ConfigureSettings(Action<OutcomeSettingsBuilder> configuration)
+        public static void ConfigureSettings(Action<OutcomeSettingOptions> options)
         {
-            OutcomeSettingsBuilder settingsBuilder = new();
-            configuration?.Invoke(settingsBuilder);
+            OutcomeSettingOptions settingOptions = new();
+            options?.Invoke(settingOptions);
         }
 
         public static IOutcome Ok()

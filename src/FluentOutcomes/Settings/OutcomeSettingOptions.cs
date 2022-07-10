@@ -1,9 +1,9 @@
 using System;
 namespace FluentOutcomes.Settings
 {
-    public class OutcomeSettingsBuilder
+    public class OutcomeSettingOptions
     {
-        public void AllCorrectMessage(string message)
+        public void SetAllCorrectMessage(string message)
         {
             if(string.IsNullOrEmpty(message))
             {
@@ -14,7 +14,7 @@ namespace FluentOutcomes.Settings
             OutcomeSettings.Instance.AllCorrectMessage = message;
         }
 
-        public void DefaultErrorMessage(string message)
+        public void SetDefaultErrorMessage(string message)
         {
             if(string.IsNullOrEmpty(message))
             {

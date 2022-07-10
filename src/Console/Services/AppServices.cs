@@ -21,12 +21,14 @@ public class AppService : IAppService
     {
         _logger.LogWarning("Starting...");
 
-        Outcome.ConfigureSettings(config =>
+        Outcome.ConfigureSettings(options =>
         {
-            config.AllCorrectMessage("All Correct");
-            config.DefaultErrorMessage("Critical Error");
-            config.AddPrefaceMetadata("Custom1", 5);
-            config.AddPrefaceMetadata("Custom2", "This is Preface");
+            options.SetAllCorrectMessage("All Correct");
+            options.SetDefaultErrorMessage("Critical Error");
+            options.DisablePrefaceMetadata();
+
+            // setting.AddPrefaceMetadata("Custom1", 5);
+            // setting.AddPrefaceMetadata("Custom2", "This is Preface");
         });
 
         var mock = new Mock();
