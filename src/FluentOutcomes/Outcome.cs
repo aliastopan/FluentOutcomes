@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FluentOutcomes.Contracts;
 using FluentOutcomes.Metadata;
 using FluentOutcomes.Settings;
@@ -205,7 +206,7 @@ namespace FluentOutcomes
 
         public IOutcome Return()
         {
-            PrefaceMetadata();
+            AddPrefaceMetadata();
             return this;
         }
 
@@ -311,13 +312,18 @@ namespace FluentOutcomes
             return this;
         }
 
-        protected void PrefaceMetadata()
+        protected void AddPrefaceMetadata()
         {
-            if(OutcomeSettings.Instance.UsingPrefaceMetadata)
+            if(!OutcomeSettings.Instance.UsingPrefaceMetadata)
             {
-                ResultTrace.Metadata.Add("Status", IsSuccess ? "Success" : "Failed");
-                ResultTrace.Metadata.Add("Verdict", ResultTrace.Verdict);
+                return;
             }
+
+            ResultTrace.Metadata.Add("Status", IsSuccess ? "Success" : "Failed");
+            ResultTrace.Metadata.Add("Verdict", ResultTrace.Verdict);
+
+            OutcomeSettings.Instance.PrefaceMetadata.ToList()
+                .ForEach(x => ResultTrace.Metadata.Add(x.Key, x.Value));
         }
     }
 
@@ -432,7 +438,7 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(T value, bool overwrite = false)
         {
-            PrefaceMetadata();
+            AddPrefaceMetadata();
 
             if(overwrite)
             {
@@ -446,7 +452,7 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(Func<T> value, bool overwrite = false)
         {
-            PrefaceMetadata();
+            AddPrefaceMetadata();
 
             if(overwrite)
             {

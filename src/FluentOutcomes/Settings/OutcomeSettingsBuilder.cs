@@ -29,5 +29,10 @@ namespace FluentOutcomes.Settings
         {
             OutcomeSettings.Instance.UsingPrefaceMetadata = false;
         }
+
+        public void AddPrefaceMetadata(string metadataName, object metadataValue, bool ignoreDisable = false)
+        {
+            OutcomeSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
+        }
     }
 }

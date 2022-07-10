@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -23,5 +24,11 @@ IHost host = Host.CreateDefaultBuilder()
     .Build();
 
 var app = ActivatorUtilities.CreateInstance<AppService>(host.Services);
+var sw = new Stopwatch();
 
+sw.Start();
 app.Run();
+sw.Stop();
+
+
+Log.Information("Elapsed: {0} ms", sw.ElapsedMilliseconds);

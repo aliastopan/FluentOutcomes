@@ -25,7 +25,8 @@ public class AppService : IAppService
         {
             config.AllCorrectMessage("All Correct");
             config.DefaultErrorMessage("Critical Error");
-            // config.DisablePrefaceMetadata();
+            config.AddPrefaceMetadata("Custom1", 5);
+            config.AddPrefaceMetadata("Custom2", "This is Preface");
         });
 
         var mock = new Mock();
