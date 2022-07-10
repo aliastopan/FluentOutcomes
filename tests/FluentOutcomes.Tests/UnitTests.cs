@@ -108,7 +108,7 @@ public class UnitTests
             .FailureIf(string.IsNullOrEmpty(message))
             .WithError(new Error())
             .Otherwise()
-            .Return(message);
+            .Return(message, overwrite: true);
 
         Assert.Equal(false, x.IsSuccess);
         Assert.Equal(string.Empty, x.Value);
