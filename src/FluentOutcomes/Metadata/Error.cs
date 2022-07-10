@@ -1,6 +1,6 @@
 using System;
 
-namespace FluentOutcomes
+namespace FluentOutcomes.Metadata
 {
     public sealed class Error
     {

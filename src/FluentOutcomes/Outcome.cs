@@ -1,5 +1,6 @@
 using System;
 using FluentOutcomes.Contracts;
+using FluentOutcomes.Metadata;
 
 namespace FluentOutcomes
 {

@@ -1,3 +1,5 @@
+using FluentOutcomes.Metadata;
+
 namespace FluentOutcomes
 {
     public interface IOutcome
