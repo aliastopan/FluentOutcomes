@@ -6,7 +6,7 @@ namespace FluentOutcomes.Settings
     {
         public MetadataSettings Metadata { get; init; }
 
-        public OutcomeSettingOptions()
+        internal OutcomeSettingOptions()
         {
             Metadata = new MetadataSettings();
         }
@@ -33,17 +33,17 @@ namespace FluentOutcomes.Settings
             OutcomeSettings.Instance.DefaultErrorMessage = message;
         }
 
-        // public void AddMetadataStatusResult()
+        // public void AddStatusResultMetadata()
         // {
         //     OutcomeSettings.Instance.UsingStatusResultMetadata = true;
         // }
 
-        // public void AddMetadataVerdict()
+        // public void AddVerdictMetadata()
         // {
         //     OutcomeSettings.Instance.UsingVerdictMetadata = true;
         // }
 
-        // public void AddMetadataGlobal(string metadataName, object metadataValue)
+        // public void AddGlobalMetadata(string metadataName, object metadataValue)
         // {
         //     OutcomeSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
         // }
