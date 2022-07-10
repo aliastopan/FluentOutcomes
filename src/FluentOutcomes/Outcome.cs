@@ -8,93 +8,95 @@ namespace FluentOutcomes
     {
         public bool IsSuccess { get; protected set; }
         public bool IsFailure => !IsSuccess;
-        public Error? Error { get; protected set; }
-        public string Verdict => Error is null ? "OK" : Error.Exception.Message;
+        public ResultTrace ResultTrace { get; protected set; }
+
+        // public Error? Error { get; protected set; }
+        // public string Verdict => Error is null ? "OK" : Error.Exception.Message;
 
         protected Outcome()
         {
-
+            ResultTrace = new ResultTrace();
         }
 
         public static IOutcome Ok()
         {
-            return new Outcome(){
-                IsSuccess = true
-            };
+            var result = new Outcome();
+            result.IsSuccess = true;
+            return result;
         }
 
         public static IOutcome<T> Ok<T>(T value)
         {
-            return new Outcome<T>(){
-                IsSuccess = true,
-                Value = value
-            };
+            var result = new Outcome<T>();
+            result.IsSuccess = true;
+            result.Value = value;
+            return result;
         }
 
         public static IOutcome Fail()
         {
-            return new Outcome(){
-                IsSuccess = false,
-                Error = new Error()
-            };
+            var result = new Outcome();
+            result.IsSuccess = false;
+            result.ResultTrace.Error = new Error();
+            return result;
         }
 
         public static IOutcome Fail(Error error)
         {
-            return new Outcome(){
-                IsSuccess = false,
-                Error = error
-            };
+            var result = new Outcome();
+            result.IsSuccess = false;
+            result.ResultTrace.Error = error;
+            return result;
         }
 
         public static IOutcome Fail(Action<Error> error)
         {
-            Error err = new();
+            Error err = new Error();
             error?.Invoke(err);
 
-            return new Outcome(){
-                IsSuccess = false,
-                Error = err
-            };
+            var result = new Outcome();
+            result.IsSuccess = false;
+            result.ResultTrace.Error = err;
+            return result;
         }
 
         public static IOutcome<T> Fail<T>()
         {
-            return new Outcome<T>(){
-                IsSuccess = false,
-                Value = default!,
-                Error = new Error()
-            };
+            var result = new Outcome<T>();
+            result.IsSuccess = false;
+            result.Value = default!;
+            result.ResultTrace.Error = new Error();
+            return result;
         }
 
         public static IOutcome<T> Fail<T>(T value, bool overwrite = false)
         {
-            return new Outcome<T>(){
-                IsSuccess = false,
-                Value = overwrite ? value : default!,
-                Error = new Error()
-            };
+            var result = new Outcome<T>();
+            result.IsSuccess = false;
+            result.Value = overwrite ? value : default!;
+            result.ResultTrace.Error = new Error();
+            return result;
         }
 
         public static IOutcome<T> Fail<T>(T value, Error error, bool overwrite = false)
         {
-            return new Outcome<T>(){
-                IsSuccess = false,
-                Value = overwrite ? value : default!,
-                Error = error
-            };
+            var result = new Outcome<T>();
+            result.IsSuccess = false;
+            result.Value = overwrite ? value : default!;
+            result.ResultTrace.Error = error;
+            return result;
         }
 
         public static IOutcome<T> Fail<T>(T value, Action<Error> error, bool overwrite = false)
         {
-            Error err = new();
+            Error err = new Error();
             error?.Invoke(err);
 
-            return new Outcome<T>(){
-                IsSuccess = false,
-                Value = overwrite ? value : default!,
-                Error = err
-            };
+            var result = new Outcome<T>();
+            result.IsSuccess = false;
+            result.Value = overwrite ? value : default!;
+            result.ResultTrace.Error = err;
+            return result;
         }
 
         public static IExpect Expect()
@@ -158,39 +160,41 @@ namespace FluentOutcomes
         public IReturn Otherwise()
         {
             if(IsSuccess)
+            {
                 return this;
+            }
 
-            Error = new();
+            ResultTrace.Error = new Error();
             return this;
         }
 
         public IReturn Otherwise(Error error)
         {
-            Error = error;
+            ResultTrace.Error = error;
             return this;
         }
 
         public IReturn Otherwise(Action<Error> error)
         {
-            Error err = new();
+            Error err = new Error();
             error?.Invoke(err);
 
-            Error = err;
+            ResultTrace.Error = err;
             return this;
         }
 
         public IOtherwise WithError(Error error)
         {
-            Error = error;
+            ResultTrace.Error = error;
             return this;
         }
 
         public IOtherwise WithError(Action<Error> error)
         {
-            Error err = new();
+            Error err = new Error();
             error?.Invoke(err);
 
-            Error = err;
+            ResultTrace.Error = err;
             return this;
         }
 
@@ -357,45 +361,51 @@ namespace FluentOutcomes
         public new IReturn<T> Otherwise()
         {
             if(IsSuccess)
+            {
                 return this;
+            }
 
-            Error = new();
+            ResultTrace.Error = new Error();
             return this;
         }
 
         public new IReturn<T> Otherwise(Error error)
         {
-            Error = new();
+            ResultTrace.Error = new Error();
             return this;
         }
 
         public new IReturn<T> Otherwise(Action<Error> error)
         {
-            Error err = new();
+            Error err = new Error();
             error?.Invoke(err);
 
-            Error = err;
+            ResultTrace.Error = err;
             return this;
         }
 
         public new IOtherwise<T> WithError(Error error)
         {
             if(IsSuccess)
+            {
                 return this;
+            }
 
-            Error = new();
+            ResultTrace.Error = new Error();
             return this;
         }
 
         public new IOtherwise<T> WithError(Action<Error> error)
         {
             if(IsSuccess)
+            {
                 return this;
+            }
 
-            Error err = new();
+            Error err = new Error();
             error?.Invoke(err);
 
-            Error = err;
+            ResultTrace.Error = err;
             return this;
         }
 

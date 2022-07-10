@@ -6,8 +6,9 @@ namespace FluentOutcomes
     {
         bool IsSuccess { get; }
         bool IsFailure { get; }
-        Error? Error { get; }
-        string Verdict { get; }
+
+        // Error? Error { get; }
+        // string Verdict { get; }
     }
 
     public interface IOutcome<T> : IOutcome
