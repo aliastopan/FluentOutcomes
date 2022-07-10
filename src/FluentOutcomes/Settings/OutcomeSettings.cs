@@ -10,8 +10,9 @@ namespace FluentOutcomes.Settings
 
         public string AllCorrectMessage { get; set; } = "OK.";
         public string DefaultErrorMessage { get; set; } = "Unspecified error has occurred.";
-        public bool UsingPrefaceMetadata { get; set; } = true;
         public Dictionary<string, object> PrefaceMetadata { get; set; }
+        public bool UsingStatusResultMetadata { get; set; } = false;
+        public bool UsingVerdictMetadata { get; set; } = false;
 
         private OutcomeSettings()
         {

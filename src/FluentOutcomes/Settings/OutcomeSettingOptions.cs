@@ -1,8 +1,16 @@
 using System;
+
 namespace FluentOutcomes.Settings
 {
     public class OutcomeSettingOptions
     {
+        public MetadataSettings Metadata { get; init; }
+
+        public OutcomeSettingOptions()
+        {
+            Metadata = new MetadataSettings();
+        }
+
         public void SetAllCorrectMessage(string message)
         {
             if(string.IsNullOrEmpty(message))
@@ -25,14 +33,19 @@ namespace FluentOutcomes.Settings
             OutcomeSettings.Instance.DefaultErrorMessage = message;
         }
 
-        public void DisablePrefaceMetadata()
-        {
-            OutcomeSettings.Instance.UsingPrefaceMetadata = false;
-        }
+        // public void AddMetadataStatusResult()
+        // {
+        //     OutcomeSettings.Instance.UsingStatusResultMetadata = true;
+        // }
 
-        public void AddPrefaceMetadata(string metadataName, object metadataValue, bool ignoreDisable = false)
-        {
-            OutcomeSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
-        }
+        // public void AddMetadataVerdict()
+        // {
+        //     OutcomeSettings.Instance.UsingVerdictMetadata = true;
+        // }
+
+        // public void AddMetadataGlobal(string metadataName, object metadataValue)
+        // {
+        //     OutcomeSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
+        // }
     }
 }

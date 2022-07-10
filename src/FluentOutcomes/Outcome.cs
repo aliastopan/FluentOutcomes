@@ -24,6 +24,22 @@ namespace FluentOutcomes
             options?.Invoke(settingOptions);
         }
 
+        protected void ApplyMetadataSetting()
+        {
+            if(OutcomeSettings.Instance.UsingStatusResultMetadata)
+            {
+                ResultTrace.Metadata.Add("Status", IsSuccess ? "Success" : "Failed");
+            }
+
+            if(OutcomeSettings.Instance.UsingVerdictMetadata)
+            {
+                ResultTrace.Metadata.Add("Verdict", ResultTrace.Verdict);
+            }
+
+            OutcomeSettings.Instance.PrefaceMetadata.ToList()
+                .ForEach(x => ResultTrace.Metadata.Add(x.Key, x.Value));
+        }
+
         public static IOutcome Ok()
         {
             var result = new Outcome();
@@ -206,7 +222,7 @@ namespace FluentOutcomes
 
         public IOutcome Return()
         {
-            AddPrefaceMetadata();
+            ApplyMetadataSetting();
             return this;
         }
 
@@ -310,20 +326,6 @@ namespace FluentOutcomes
         {
             IsSuccess = !(IsFailure || !evaluate.Invoke());
             return this;
-        }
-
-        protected void AddPrefaceMetadata()
-        {
-            if(!OutcomeSettings.Instance.UsingPrefaceMetadata)
-            {
-                return;
-            }
-
-            ResultTrace.Metadata.Add("Status", IsSuccess ? "Success" : "Failed");
-            ResultTrace.Metadata.Add("Verdict", ResultTrace.Verdict);
-
-            OutcomeSettings.Instance.PrefaceMetadata.ToList()
-                .ForEach(x => ResultTrace.Metadata.Add(x.Key, x.Value));
         }
     }
 
@@ -438,7 +440,7 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(T value, bool overwrite = false)
         {
-            AddPrefaceMetadata();
+            ApplyMetadataSetting();
 
             if(overwrite)
             {
@@ -452,7 +454,7 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(Func<T> value, bool overwrite = false)
         {
-            AddPrefaceMetadata();
+            ApplyMetadataSetting();
 
             if(overwrite)
             {

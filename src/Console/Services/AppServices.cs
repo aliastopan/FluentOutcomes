@@ -25,8 +25,14 @@ public class AppService : IAppService
         {
             options.SetAllCorrectMessage("All Correct");
             options.SetDefaultErrorMessage("Critical Error");
-            options.DisablePrefaceMetadata();
+            options.Metadata.AddStatusResult();
+            options.Metadata.AddVerdict();
+            options.Metadata.AddGlobalMetadata("Preface", 100);
 
+            // options.AddMetadataStatusResult();
+            // options.AddMetadataVerdict();
+            // options.AddMetadataGlobal("Preface", 100);
+            // options.DisablePrefaceMetadata();
             // setting.AddPrefaceMetadata("Custom1", 5);
             // setting.AddPrefaceMetadata("Custom2", "This is Preface");
         });
