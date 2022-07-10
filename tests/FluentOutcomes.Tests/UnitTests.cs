@@ -3,6 +3,19 @@ namespace FluentOutcomes.Tests;
 
 public class UnitTests
 {
+    // [Fact]
+    // public void MetadataTest()
+    // {
+    //     var x = Outcome
+    //         .Expect()
+    //         .SuccessIf(true)
+    //         .Otherwise()
+    //         .Return();
+
+    //     // var verdict = x.ResultTrace.Metadata["Verdict"];
+    //     Assert.NotEqual(verdict, "???");
+    // }
+
     [Fact]
     public void _SuccessChaining()
     {

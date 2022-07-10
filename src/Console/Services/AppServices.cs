@@ -23,7 +23,7 @@ public class AppService : IAppService
 
         Outcome.ConfigureSettings(options =>
         {
-            options.SetAllCorrectMessage("OK.");
+            options.SetAllCorrectMessage("Yay!");
             options.SetDefaultErrorMessage("Oops...");
             options.Metadata.AddStatusResult();
             options.Metadata.AddVerdict();
