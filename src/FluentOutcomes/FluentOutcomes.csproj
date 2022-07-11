@@ -6,9 +6,9 @@
     <AssemblyName>FluentOutcomes</AssemblyName>
     <PackageId>FluentOutcomes</PackageId>
     <Description>A lightweight wrapper return type object with declarative and fluent if-else statement for .NET</Description>
-    <Version>3.0.0-alpha.2</Version>
+    <Version>3.0.0-alpha.3</Version>
     <PackageReleaseNotes>
-    v3.0.0-alpha.2
+    v3.0.0-alpha.3
       - BREAKING CHANGES: Verdict -> IOutcome.ResultTrace.Verdict
       - BREAKING CHANGES: Error class is now under FluentOutcomes.Metadata namespace
       - ADDED: Add metadata support
