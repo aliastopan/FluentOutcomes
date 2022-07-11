@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FluentOutcomes.Metadata;
 
 namespace FluentOutcomes.Settings
 {
@@ -10,13 +11,13 @@ namespace FluentOutcomes.Settings
 
         public string AllCorrectMessage { get; internal set; } = "OK.";
         public string DefaultErrorMessage { get; internal set; } = "Unspecified error has occurred.";
-        public Dictionary<string, object> PrefaceMetadata { get; internal set; }
+        public List<PrefaceMetadata> PrefaceMetadata { get; internal set; }
         public bool UsingStatusResultMetadata { get; internal set; } = false;
         public bool UsingVerdictMetadata { get; internal set; } = false;
 
         private OutcomeSettings()
         {
-            PrefaceMetadata = new Dictionary<string, object>();
+            PrefaceMetadata = new List<PrefaceMetadata>();
         }
     }
 }

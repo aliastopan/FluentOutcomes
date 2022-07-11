@@ -20,6 +20,17 @@ namespace FluentOutcomes.Metadata
             Metadata = new Dictionary<string, object>();
         }
 
+        internal void ApplyMetadataSetting(bool isSuccess)
+        {
+            AssertStatusResultMetadata(isSuccess);
+            AssertVerdictMetadata(isSuccess);
+
+            OutcomeSettings.Instance.PrefaceMetadata.ToList()
+                .ForEach(preface => {
+                    AssertMetadata(preface.MetadataName, preface.MetadataValue, isSuccess, preface.AssertLevel);
+                });
+        }
+
         internal void AssertMetadata(string metadataName, object metadataValue, bool isSuccess, AssertLevel assertLevel = AssertLevel.Default)
         {
             switch(assertLevel)
@@ -48,20 +59,20 @@ namespace FluentOutcomes.Metadata
             }
         }
 
-        internal void ApplyMetadataSetting(bool isSuccess)
+        private void AssertStatusResultMetadata(bool isSuccess)
         {
             if(OutcomeSettings.Instance.UsingStatusResultMetadata)
             {
                 Metadata.Add("Status", isSuccess ? "Success" : "Failed");
             }
+        }
 
+        private void AssertVerdictMetadata(bool isSuccess)
+        {
             if(OutcomeSettings.Instance.UsingVerdictMetadata)
             {
                 Metadata.Add("Verdict", Verdict);
             }
-
-            OutcomeSettings.Instance.PrefaceMetadata.ToList()
-                .ForEach(x => Metadata.Add(x.Key, x.Value));
         }
     }
 }

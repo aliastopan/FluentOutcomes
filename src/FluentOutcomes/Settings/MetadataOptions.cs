@@ -1,3 +1,5 @@
+using FluentOutcomes.Metadata;
+
 namespace FluentOutcomes.Settings
 {
     public sealed class MetadataOptions
@@ -17,9 +19,10 @@ namespace FluentOutcomes.Settings
             OutcomeSettings.Instance.UsingVerdictMetadata = true;
         }
 
-        public void AddGlobalMetadata(string metadataName, object metadataValue)
+        public void AddGlobalMetadata(string metadataName, object metadataValue, AssertLevel assertLevel = AssertLevel.Default)
         {
-            OutcomeSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
+            var prefaceMetadata = new PrefaceMetadata(metadataName, metadataValue, assertLevel);
+            OutcomeSettings.Instance.PrefaceMetadata.Add(prefaceMetadata);
         }
     }
 }

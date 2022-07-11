@@ -31,7 +31,8 @@ public class AppService : IAppService
             config.Metadata(stack => {
                 stack.AddStatusResult();
                 stack.AddVerdict();
-                stack.AddGlobalMetadata("Preface", "Global Metadata");
+                stack.AddGlobalMetadata("Success", "200", AssertLevel.SuccessOnly);
+                stack.AddGlobalMetadata("Failure", "400", AssertLevel.FailureOnly);
             });
         });
 
@@ -44,10 +45,10 @@ public class AppService : IAppService
             })
             .Otherwise()
             .Return(mock)
-                .WithMetadata("Expected", mock)
-                .WithMetadata("Timestamp", DateTime.Now)
-                .WithMetadata("OnlyFailure", "Fail?", AssertLevel.FailureOnly)
-                .WithMetadata("OnlySuccess", "Success?", AssertLevel.SuccessOnly);
+                .WithMetadata("Timestamp", DateTime.Now);
+                // .WithMetadata("Expected", mock)
+                // .WithMetadata("OnlyFailure", "Fail?", AssertLevel.FailureOnly)
+                // .WithMetadata("OnlySuccess", "Success?", AssertLevel.SuccessOnly);
 
         var str = result.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");
