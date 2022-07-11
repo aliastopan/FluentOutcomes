@@ -1,10 +1,17 @@
 using System;
 using FluentOutcomes.Metadata;
+using FluentOutcomes.Settings;
 
 namespace FluentOutcomes
 {
     public partial class Outcome
     {
+        public static void ConfigureSettings(Action<ResultOptions> options)
+        {
+            var resultOptions = new ResultOptions();
+            options?.Invoke(resultOptions);
+        }
+
         public static IOutcome Ok()
         {
             var result = new Outcome();

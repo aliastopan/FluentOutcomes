@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using FluentOutcomes;
 using FluentOutcomes.Metadata;
-using FluentOutcomes.Settings;
 using Console.Models;
 
 namespace Console.Services;
@@ -25,8 +24,7 @@ public class AppService : IAppService
 
         _logger.LogWarning("Starting...");
 
-
-        OutcomeSettings.Configure(config =>
+        Outcome.ConfigureSettings(config =>
         {
             config.SetAllCorrectMessage("Yay!");
             config.SetDefaultErrorMessage("Oops...");

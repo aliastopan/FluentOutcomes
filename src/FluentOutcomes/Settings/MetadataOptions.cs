@@ -9,17 +9,17 @@ namespace FluentOutcomes.Settings
 
         public void AddStatusResult()
         {
-            MainSettings.Instance.UsingStatusResultMetadata = true;
+            OutcomeSettings.Instance.UsingStatusResultMetadata = true;
         }
 
         public void AddVerdict()
         {
-            MainSettings.Instance.UsingVerdictMetadata = true;
+            OutcomeSettings.Instance.UsingVerdictMetadata = true;
         }
 
         public void AddGlobalMetadata(string metadataName, object metadataValue)
         {
-            MainSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
+            OutcomeSettings.Instance.PrefaceMetadata.Add(metadataName, metadataValue);
         }
     }
 }

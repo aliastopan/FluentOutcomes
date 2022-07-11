@@ -9,7 +9,7 @@ namespace FluentOutcomes.Metadata
 
         public Error()
         {
-            string message = MainSettings.Instance.DefaultErrorMessage;
+            string message = OutcomeSettings.Instance.DefaultErrorMessage;
             Exception = new Exception(message);
         }
 

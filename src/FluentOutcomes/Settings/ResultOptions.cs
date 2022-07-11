@@ -17,7 +17,7 @@ namespace FluentOutcomes.Settings
                 throw new InvalidOperationException(warning);
             }
 
-            MainSettings.Instance.AllCorrectMessage = message;
+            OutcomeSettings.Instance.AllCorrectMessage = message;
         }
 
         public void SetDefaultErrorMessage(string message)
@@ -28,7 +28,7 @@ namespace FluentOutcomes.Settings
                 throw new InvalidOperationException(warning);
             }
 
-            MainSettings.Instance.DefaultErrorMessage = message;
+            OutcomeSettings.Instance.DefaultErrorMessage = message;
         }
 
         public void Metadata(Action<MetadataOptions> options)

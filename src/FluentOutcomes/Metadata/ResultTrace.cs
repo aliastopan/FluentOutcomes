@@ -11,7 +11,7 @@ namespace FluentOutcomes.Metadata
         public string Verdict
         {
             get => Error is null
-                ? MainSettings.Instance.AllCorrectMessage
+                ? OutcomeSettings.Instance.AllCorrectMessage
                 : Error.Exception.Message;
         }
 
@@ -50,17 +50,17 @@ namespace FluentOutcomes.Metadata
 
         internal void ApplyMetadataSetting(bool isSuccess)
         {
-            if(MainSettings.Instance.UsingStatusResultMetadata)
+            if(OutcomeSettings.Instance.UsingStatusResultMetadata)
             {
                 Metadata.Add("Status", isSuccess ? "Success" : "Failed");
             }
 
-            if(MainSettings.Instance.UsingVerdictMetadata)
+            if(OutcomeSettings.Instance.UsingVerdictMetadata)
             {
                 Metadata.Add("Verdict", Verdict);
             }
 
-            MainSettings.Instance.PrefaceMetadata.ToList()
+            OutcomeSettings.Instance.PrefaceMetadata.ToList()
                 .ForEach(x => Metadata.Add(x.Key, x.Value));
         }
     }
