@@ -28,11 +28,11 @@ public class AppService : IAppService
         {
             config.SetAllCorrectMessage("Yay!");
             config.SetDefaultErrorMessage("Oops...");
-            config.Metadata(stack => {
-                stack.AddStatusResult();
-                stack.AddVerdict();
-                stack.AddGlobalMetadata("Success", "200", AssertLevel.SuccessOnly);
-                stack.AddGlobalMetadata("Failure", "400", AssertLevel.FailureOnly);
+            config.Metadata(x => {
+                x.AssertStatusResult();
+                x.AssertVerdict();
+                x.AssertGlobalMetadata("Success", "200", AssertLevel.SuccessOnly);
+                x.AssertGlobalMetadata("Failure", "400", AssertLevel.FailureOnly);
             });
         });
 
