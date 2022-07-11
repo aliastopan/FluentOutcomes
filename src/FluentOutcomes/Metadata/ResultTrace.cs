@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using FluentOutcomes.Settings;
 
@@ -10,7 +11,7 @@ namespace FluentOutcomes.Metadata
         public string Verdict
         {
             get => Error is null
-                ? OutcomeSettings.Instance.AllCorrectMessage
+                ? MainSettings.Instance.AllCorrectMessage
                 : Error.Exception.Message;
         }
 
@@ -21,7 +22,6 @@ namespace FluentOutcomes.Metadata
 
         internal void AssertMetadata(string metadataName, object metadataValue, bool isSuccess, AssertLevel assertLevel = AssertLevel.Default)
         {
-
             switch(assertLevel)
             {
                 case AssertLevel.FailureOnly:
@@ -46,6 +46,22 @@ namespace FluentOutcomes.Metadata
                     break;
                 }
             }
+        }
+
+        internal void ApplyMetadataSetting(bool isSuccess)
+        {
+            if(MainSettings.Instance.UsingStatusResultMetadata)
+            {
+                Metadata.Add("Status", isSuccess ? "Success" : "Failed");
+            }
+
+            if(MainSettings.Instance.UsingVerdictMetadata)
+            {
+                Metadata.Add("Verdict", Verdict);
+            }
+
+            MainSettings.Instance.PrefaceMetadata.ToList()
+                .ForEach(x => Metadata.Add(x.Key, x.Value));
         }
     }
 }

@@ -2,9 +2,9 @@ using System;
 
 namespace FluentOutcomes.Settings
 {
-    public class OutcomeSettingOptions
+    public sealed class ResultOptions
     {
-        internal OutcomeSettingOptions()
+        internal ResultOptions()
         {
 
         }
@@ -17,7 +17,7 @@ namespace FluentOutcomes.Settings
                 throw new InvalidOperationException(warning);
             }
 
-            OutcomeSettings.Instance.AllCorrectMessage = message;
+            MainSettings.Instance.AllCorrectMessage = message;
         }
 
         public void SetDefaultErrorMessage(string message)
@@ -28,13 +28,13 @@ namespace FluentOutcomes.Settings
                 throw new InvalidOperationException(warning);
             }
 
-            OutcomeSettings.Instance.DefaultErrorMessage = message;
+            MainSettings.Instance.DefaultErrorMessage = message;
         }
 
-        public void Metadata(Action<MetadataSettingOptions> options)
+        public void Metadata(Action<MetadataOptions> options)
         {
-            MetadataSettingOptions settings = new MetadataSettingOptions();
-            options?.Invoke(settings);
+            var metadataOptions = new MetadataOptions();
+            options?.Invoke(metadataOptions);
         }
     }
 }

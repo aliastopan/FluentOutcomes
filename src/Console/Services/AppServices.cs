@@ -25,7 +25,8 @@ public class AppService : IAppService
 
         _logger.LogWarning("Starting...");
 
-        Outcome.ConfigureSettings(config =>
+
+        OutcomeSettings.Configure(config =>
         {
             config.SetAllCorrectMessage("Yay!");
             config.SetDefaultErrorMessage("Oops...");

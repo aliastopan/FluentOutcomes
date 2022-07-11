@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
 using FluentOutcomes.Contracts;
 using FluentOutcomes.Metadata;
-using FluentOutcomes.Settings;
 
 namespace FluentOutcomes
 {
@@ -16,28 +14,6 @@ namespace FluentOutcomes
         protected Outcome()
         {
             ResultTrace = new ResultTrace();
-        }
-
-        public static void ConfigureSettings(Action<OutcomeSettingOptions> options)
-        {
-            var settings = new OutcomeSettingOptions();
-            options?.Invoke(settings);
-        }
-
-        protected void ApplyMetadataSetting()
-        {
-            if(OutcomeSettings.Instance.UsingStatusResultMetadata)
-            {
-                ResultTrace.Metadata.Add("Status", IsSuccess ? "Success" : "Failed");
-            }
-
-            if(OutcomeSettings.Instance.UsingVerdictMetadata)
-            {
-                ResultTrace.Metadata.Add("Verdict", ResultTrace.Verdict);
-            }
-
-            OutcomeSettings.Instance.PrefaceMetadata.ToList()
-                .ForEach(x => ResultTrace.Metadata.Add(x.Key, x.Value));
         }
 
         public static IOutcome Ok()
@@ -222,7 +198,7 @@ namespace FluentOutcomes
 
         public IOutcome Return()
         {
-            ApplyMetadataSetting();
+            ResultTrace.ApplyMetadataSetting(IsSuccess);
             return this;
         }
 
@@ -440,7 +416,7 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(T value, bool overwrite = false)
         {
-            ApplyMetadataSetting();
+            ResultTrace.ApplyMetadataSetting(IsSuccess);
 
             if(overwrite)
             {
@@ -454,7 +430,7 @@ namespace FluentOutcomes
 
         public IOutcome<T> Return(Func<T> value, bool overwrite = false)
         {
-            ApplyMetadataSetting();
+            ResultTrace.ApplyMetadataSetting(IsSuccess);
 
             if(overwrite)
             {
