@@ -6,7 +6,7 @@ namespace FluentOutcomes.Settings
 {
     internal sealed class OutcomeSettings
     {
-        private static readonly Lazy<OutcomeSettings> lazy = new(() => new OutcomeSettings());
+        private static readonly Lazy<OutcomeSettings> lazy = new Lazy<OutcomeSettings>(() => new OutcomeSettings());
         public static OutcomeSettings Instance => lazy.Value;
 
         public string AllCorrectMessage { get; internal set; } = "OK.";

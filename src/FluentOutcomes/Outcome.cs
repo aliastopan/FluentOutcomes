@@ -154,7 +154,7 @@ namespace FluentOutcomes
 
     internal partial class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFailure<T>, IOtherwise<T>, IReturn<T>
     {
-        public T Value { get; set; } = default!;
+        public T Value { get; set; } = default;
 
         protected internal Outcome()
             : base()
@@ -289,7 +289,7 @@ namespace FluentOutcomes
                 return this;
             }
 
-            Value = IsSuccess ? value : default!;
+            Value = IsSuccess ? value : default;
             return this;
         }
 
@@ -303,7 +303,7 @@ namespace FluentOutcomes
                 return this;
             }
 
-            Value = IsSuccess ? value.Invoke() : default!;
+            Value = IsSuccess ? value.Invoke() : default;
             return this;
         }
 

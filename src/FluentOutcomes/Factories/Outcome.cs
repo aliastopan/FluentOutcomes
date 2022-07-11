@@ -39,22 +39,22 @@ namespace FluentOutcomes
 
         public static IOutcome<T> Fail<T>()
         {
-            return new Outcome<T>(default!, false, new Error());
+            return new Outcome<T>(default, false, new Error());
         }
 
         public static IOutcome<T> Fail<T>(T value, bool overwrite = false)
         {
-            return new Outcome<T>(overwrite ? value : default!, false, new Error());
+            return new Outcome<T>(overwrite ? value : default, false, new Error());
         }
 
         public static IOutcome<T> Fail<T>(T value, Error error, bool overwrite = false)
         {
-            return new Outcome<T>(overwrite ? value : default!, false, error);
+            return new Outcome<T>(overwrite ? value : default, false, error);
         }
 
         public static IOutcome<T> Fail<T>(T value, Action<Error> error, bool overwrite = false)
         {
-            return new Outcome<T>(overwrite ? value : default!, false, error);
+            return new Outcome<T>(overwrite ? value : default, false, error);
         }
     }
 }

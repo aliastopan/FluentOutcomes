@@ -3,18 +3,17 @@ namespace FluentOutcomes.Tests;
 
 public class UnitTests
 {
-    // [Fact]
-    // public void MetadataTest()
-    // {
-    //     var x = Outcome
-    //         .Expect()
-    //         .SuccessIf(true)
-    //         .Otherwise()
-    //         .Return();
+    [Fact]
+    public void NullableTest()
+    {
+        var x = Outcome
+            .Expect<string>()
+            .SuccessIf(true)
+            .Otherwise()
+            .Return("Hello.");
 
-    //     // var verdict = x.ResultTrace.Metadata["Verdict"];
-    //     Assert.NotEqual(verdict, "???");
-    // }
+        Assert.Equal(null, x.ResultTrace.Error);
+    }
 
     [Fact]
     public void _SuccessChaining()
