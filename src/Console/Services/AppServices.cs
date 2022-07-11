@@ -20,6 +20,7 @@ public class AppService : IAppService
 
     public void Run()
     {
+        var mock = new Mock();
         // var x = new OutcomeSettingOptions();
 
         _logger.LogWarning("Starting...");
@@ -28,41 +29,38 @@ public class AppService : IAppService
         {
             config.SetAllCorrectMessage("Yay!");
             config.SetDefaultErrorMessage("Oops...");
-            config.Metadata(stack =>
-            {
+            config.Metadata(stack => {
                 stack.AddStatusResult();
                 stack.AddVerdict();
                 stack.AddGlobalMetadata("Preface", "Global Metadata");
             });
         });
 
-        var mock = new Mock();
-
-        var x = Outcome
+        var result = Outcome
             .Expect<Mock>()
-            .FailureIf(false)
+            .FailureIf(true)
             .WithError(error => {
                 string message = "Something went wrong.";
                 error.Exception = new Exception(message);
             })
             .Otherwise()
-            .Return(mock, overwrite: true)
+            .Return(mock)
                 .WithMetadata("Expected", mock)
                 .WithMetadata("Timestamp", DateTime.Now)
-                .WithMetadata("OnlyFailure", "Fail?", AssertLevel.OnlyFailure)
-                .WithMetadata("OnlySuccess", "Success?", AssertLevel.OnlySuccess);
+                .WithMetadata("OnlyFailure", "Fail?", AssertLevel.FailureOnly)
+                .WithMetadata("OnlySuccess", "Success?", AssertLevel.SuccessOnly);
 
-        var str = x.IsSuccess ? "Success" : "Failure";
+        var str = result.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");
-        _logger.LogWarning($"Verdict: {x.ResultTrace.Verdict}");
-        _logger.LogWarning($"Mock: {x.Value}");
+        _logger.LogWarning($"Verdict: {result.ResultTrace.Verdict}");
+        // _logger.LogWarning($"Mock: {x.Value.Message}");
 
-        if(x.HasMetadata)
+        if(result.HasMetadata)
         {
-            for (int i = 0; i < x.ResultTrace.Metadata.Count; i++)
+            for (int i = 0; i < result.ResultTrace.Metadata.Count; i++)
             {
-                var metadata = x.ResultTrace.Metadata.ElementAt(i);
-                _logger.LogCritical($"[{i+1}]: {metadata}");
+                var metadata = result.ResultTrace.Metadata.ElementAt(i);
+                _logger.LogInformation($"[{i+1}]: " + "{0}", metadata);
             }
         }
 

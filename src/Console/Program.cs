@@ -32,5 +32,3 @@ sw.Stop();
 
 
 Log.Information("Elapsed: {0} ms", sw.ElapsedMilliseconds);
-
-System.Console.ReadLine();
