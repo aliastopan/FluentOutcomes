@@ -1,12 +1,12 @@
 namespace FluentOutcomes.Metadata
 {
-    public class PrefaceMetadata
+    internal sealed class PrefaceMetadata
     {
         public string MetadataName { get; set; }
         public object MetadataValue { get; set; }
         public AssertLevel AssertLevel { get; set; }
 
-        public PrefaceMetadata(string metadataName, object metadataValue, AssertLevel assertLevel)
+        internal PrefaceMetadata(string metadataName, object metadataValue, AssertLevel assertLevel)
         {
             MetadataName = metadataName;
             MetadataValue = metadataValue;
