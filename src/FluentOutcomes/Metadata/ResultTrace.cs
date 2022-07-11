@@ -24,7 +24,7 @@ namespace FluentOutcomes.Metadata
 
             switch(assertLevel)
             {
-                case AssertLevel.OnlyFailure:
+                case AssertLevel.FailureOnly:
                 {
                     if(isSuccess)
                         break;
@@ -32,7 +32,7 @@ namespace FluentOutcomes.Metadata
                     Metadata.Add(metadataName, metadataValue);
                     break;
                 }
-                case AssertLevel.OnlySuccess:
+                case AssertLevel.SuccessOnly:
                 {
                     if(!isSuccess)
                         break;
