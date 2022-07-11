@@ -16,6 +16,29 @@ namespace FluentOutcomes
             ResultTrace = new ResultTrace();
         }
 
+        protected Outcome(bool condition)
+        {
+            ResultTrace = new ResultTrace();
+            IsSuccess = condition;
+        }
+
+        protected Outcome(bool condition, Error error)
+        {
+            ResultTrace = new ResultTrace();
+            IsSuccess = condition;
+            ResultTrace.Error = error;
+        }
+
+        protected Outcome(bool condition, Action<Error> error)
+        {
+            var err = new Error();
+            error?.Invoke(err);
+
+            ResultTrace = new ResultTrace();
+            IsSuccess = condition;
+            ResultTrace.Error = err;
+        }
+
         public static IExpect Expect()
         {
             return new Outcome();
@@ -137,6 +160,24 @@ namespace FluentOutcomes
             : base()
         {
 
+        }
+
+        protected internal Outcome(T value, bool condition)
+            : base(condition)
+        {
+            Value = value;
+        }
+
+        protected internal Outcome(T value, bool condition, Error error)
+            : base(condition, error)
+        {
+            Value = value;
+        }
+
+        protected internal Outcome(T value, bool condition, Action<Error> error)
+            : base(condition, error)
+        {
+            Value = value;
         }
 
         public new ISuccess<T> SuccessIf(bool condition)
