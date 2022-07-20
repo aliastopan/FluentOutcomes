@@ -33,6 +33,11 @@ namespace FluentOutcomes.Metadata
 
         internal void AssertMetadata(string metadataName, object metadataValue, bool isSuccess, AssertLevel assertLevel = AssertLevel.Default)
         {
+            if(Metadata.Keys.Contains(metadataName))
+            {
+                return;
+            }
+
             switch(assertLevel)
             {
                 case AssertLevel.FailureOnly:
