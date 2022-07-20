@@ -28,20 +28,14 @@ public class AppService : IAppService
         {
             config.SetAllCorrectMessage("Yay!");
             config.SetDefaultErrorMessage("Oops...");
-            config.Metadata(x => {
+            config.Metadata(x =>
+            {
                 x.AssertStatusResult();
                 x.AssertVerdict();
                 x.AssertGlobalMetadata("Success", "200", AssertLevel.SuccessOnly);
                 x.AssertGlobalMetadata("Failure", "400", AssertLevel.FailureOnly);
             });
         });
-
-        var mockResult = Outcome
-            .Expect<Mock>()
-            .SuccessIf(true)
-            .Otherwise(errorMessage: "Something went wrong")
-            .Return(mock);
-
 
         var result = Outcome
             .Expect<Mock>()
@@ -51,11 +45,11 @@ public class AppService : IAppService
                 error.Exception = new Exception(message);
             })
             .Otherwise()
-            .Return(mock)
-                .WithMetadata("Timestamp", DateTime.Now);
-                // .WithMetadata("Expected", mock)
-                // .WithMetadata("OnlyFailure", "Fail?", AssertLevel.FailureOnly)
-                // .WithMetadata("OnlySuccess", "Success?", AssertLevel.SuccessOnly);
+            .Return(mock, overwrite: false)
+                .WithMetadata("Timestamp", DateTime.Now)
+                .WithMetadata("Expected", mock)
+                .WithMetadata("OnlyFailure", "Fail?", AssertLevel.FailureOnly)
+                .WithMetadata("OnlySuccess", "Success?", AssertLevel.SuccessOnly);
 
         var str = result.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");
