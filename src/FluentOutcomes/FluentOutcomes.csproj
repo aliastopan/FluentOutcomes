@@ -8,11 +8,12 @@
     <Version>3.0.0-beta</Version>
     <PackageReleaseNotes>
     v3.0.0-beta
-      - BREAKING CHANGES: Verdict -> IOutcome.ResultTrace.Verdict
-      - BREAKING CHANGES: Error class is now under FluentOutcomes.Metadata namespace
-      - ADDED: Add metadata support
-      - ADDED: Add additional overloading Otherwise() clause;
-      - ADDED: Add Settings
+      - BREAKING CHANGES: Verdict -> IOutcome.ResultTrace.Verdict.
+      - BREAKING CHANGES: Error class is now under FluentOutcomes.Metadata namespace.
+      - ADDED: Add metadata support.
+      - ADDED: Add additional overloading Otherwise() clause.
+      - ADDED: Add settings.
+      - ADDED: Add netstandard2.x backward compatibility.
     v2.1.0
       - ADDED: Add delegate (parameter) support of boolean operation and Return() clause.
       - ADDED: Add option to overwrite the default! on Return() clause.
@@ -41,6 +42,6 @@
     <PackageTags>lightweight, wrapper, result, error-handling, fluent-api</PackageTags>
     <PackageProjectUrl>https://github.com/einharan/FluentOutcomes</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryURL>https://github.com/einharan/FluentOutcomes</RepositoryURL>
+    <RepositoryURL>https://github.com/einharan/FluentOutcomes/tree/experimental</RepositoryURL>
   </PropertyGroup>
 </Project>
