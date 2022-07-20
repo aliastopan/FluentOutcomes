@@ -6,10 +6,16 @@
 FluentOutcomes is a lightweight .NET library to wrap a returning object while handling the potential errors that comes with it without throwing an exception and to provide a fluent and declarative way of dealing with `if-else` statement.
 
 ## NuGet Package
+```
+dotnet add package FluentOutcomes --version 3.0.0-beta
+```
 
-```
-dotnet add package FluentOutcomes --version 2.1.0
-```
+# Table of Contents
+1. [Overview](#overview)
+2. [Example](#examples)
+3. [Fluent Boolean Operation](#fluent-boolean-operation)
+4. [Metadata](#metadata)
+5. [Configure Setting](#configure-setting)
 
 ## Overview
 
@@ -47,6 +53,7 @@ public IOutcome<User> ExpectGetUser(string username)
         .Return(result!);                      // return User object
 }
 ```
+
 ### Expecting using **failure** flow if statement
 ``` csharp
 public IOutcome<User> ExpectGetUser(string username)
@@ -90,6 +97,7 @@ var kar = Outcome.Fail<string>("Hello, World", error => {
             error.Exception = new Exception();
         }, overwrite: false);
 ```
+
 ## Fluent Boolean Operation
 
 ### Using **IfNot**, **Or**, **And**, **OrNot**, and **AndNot**
@@ -157,7 +165,7 @@ IOutcome<string> bar = Outcome
     .Return($"{foo} {bar} {baz} {qux} {led} {dim} {bam} {cok}");
 ```
 
-### Func delegate
+### Func delegatec
 In the case of complex boolean operation, you can use lamda expression as argument.
 ``` csharp
 IOutcome<string> foo = Outcome
@@ -181,4 +189,52 @@ return Outcome
     .Return(() => {
         return "I don't know why would you return something like this, but here you go.";
     });
+```
+
+## Metadata
+
+Asserting metadata to a `IOutcome`.
+
+``` csharp
+var foo = Outcome
+    .Expect()
+    .SuccessIf(true)
+    .Otherwise()
+    .Return()
+        .WithMetadata("Timestamp", DateTime.Now)
+        .WithMetadata("CurrentUser", CurrenttUser.Username);
+
+Dictionary<string, object> Metadata = foo.ResultTrace.Metadata;
+```
+
+### Metadata Assertion Level
+
+``` csharp
+return Outcome
+    .Expect()
+    .SuccessIf(true)
+    .Otherwise()
+    .Return()
+        .WithMetadata("Expected", 200, AssertLevel.SuccessOnly)
+        .WithMetadata("NotFound", 404, AssertLevel.FailureOnly);
+
+Dictionary<string, object> Metadata = foo.ResultTrace.Metadata;
+```
+
+## Configure Setting
+
+You can configure `IOutcome` and assert preface metadata to all `IOutcome`.
+
+``` csharp
+Outcome.ConfigureSettings(config =>
+{
+    config.SetAllCorrectMessage("Yay!");        // default: "OK"
+    config.SetDefaultErrorMessage("Oops...");   // default: "Unspecified error has occurred."
+    config.Metadata(x =>
+    {
+        x.AssertStatusResult();
+        x.AssertVerdict();
+        x.AssertGlobalMetadata("Timestamp", DateTime.Now);
+    });
+});
 ```
