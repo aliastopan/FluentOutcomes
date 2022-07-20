@@ -6,6 +6,7 @@ namespace FluentOutcomes.Contracts
     public interface IFailure : ILogic<IFailure>
     {
         IReturn Otherwise();
+        IOtherwise WithError(string errorMessage);
         IOtherwise WithError(Error error);
         IOtherwise WithError(Action<Error> error);
     }
@@ -13,6 +14,7 @@ namespace FluentOutcomes.Contracts
     public interface IFailure<T> : ILogic<IFailure<T>>
     {
         IReturn<T> Otherwise();
+        IOtherwise<T> WithError(string errorMessage);
         IOtherwise<T> WithError(Error error);
         IOtherwise<T> WithError(Action<Error> error);
     }

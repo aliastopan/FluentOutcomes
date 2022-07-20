@@ -36,6 +36,13 @@ public class AppService : IAppService
             });
         });
 
+        var mockResult = Outcome
+            .Expect<Mock>()
+            .SuccessIf(true)
+            .Otherwise(errorMessage: "Something went wrong")
+            .Return(mock);
+
+
         var result = Outcome
             .Expect<Mock>()
             .FailureIf(true)

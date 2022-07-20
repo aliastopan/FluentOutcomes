@@ -6,6 +6,7 @@ namespace FluentOutcomes.Contracts
     public interface ISuccess : ILogic<ISuccess>
     {
         IReturn Otherwise();
+        IReturn Otherwise(string errorMessage);
         IReturn Otherwise(Error error);
         IReturn Otherwise(Action<Error> error);
     }
@@ -13,6 +14,7 @@ namespace FluentOutcomes.Contracts
     public interface ISuccess<T> : ILogic<ISuccess<T>>
     {
         IReturn<T> Otherwise();
+        IReturn<T> Otherwise(string errorMessage);
         IReturn<T> Otherwise(Error error);
         IReturn<T> Otherwise(Action<Error> error);
     }

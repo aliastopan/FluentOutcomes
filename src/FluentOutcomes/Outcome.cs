@@ -108,6 +108,17 @@ namespace FluentOutcomes
             return this;
         }
 
+        public IReturn Otherwise(string errorMessage)
+        {
+            if(IsSuccess)
+            {
+                return this;
+            }
+
+            ResultTrace.Error = new Error(errorMessage);
+            return this;
+        }
+
         public IReturn Otherwise(Error error)
         {
             ResultTrace.Error = error;
@@ -120,6 +131,12 @@ namespace FluentOutcomes
             error?.Invoke(err);
 
             ResultTrace.Error = err;
+            return this;
+        }
+
+        public IOtherwise WithError(string errorMessage)
+        {
+            ResultTrace.Error = new Error(errorMessage);
             return this;
         }
 
@@ -149,7 +166,6 @@ namespace FluentOutcomes
             ResultTrace.AssertMetadata(metadataName, metadataValue, IsSuccess, assertLevel);
             return this;
         }
-
     }
 
     internal partial class Outcome<T> : Outcome, IOutcome<T>, IExpect<T>, ISuccess<T>, IFailure<T>, IOtherwise<T>, IReturn<T>
@@ -239,6 +255,17 @@ namespace FluentOutcomes
             return this;
         }
 
+        public new IReturn<T> Otherwise(string errorMessage)
+        {
+            if(IsSuccess)
+            {
+                return this;
+            }
+
+            ResultTrace.Error = new Error(errorMessage);
+            return this;
+        }
+
         public new IReturn<T> Otherwise(Error error)
         {
             ResultTrace.Error = new Error();
@@ -251,6 +278,12 @@ namespace FluentOutcomes
             error?.Invoke(err);
 
             ResultTrace.Error = err;
+            return this;
+        }
+
+        public new IOtherwise<T> WithError(string errorMessage)
+        {
+            ResultTrace.Error = new Error(errorMessage);
             return this;
         }
 
