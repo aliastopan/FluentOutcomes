@@ -20,32 +20,18 @@ public class AppService : IAppService
     public void Run()
     {
         var mock = new Mock();
-        // var x = new OutcomeSettingOptions();
 
         _logger.LogWarning("Starting...");
 
-        Outcome.ConfigureSettings(config =>
-        {
-            config.SetAllCorrectMessage("Yay!");
-            config.SetDefaultErrorMessage("Oops...");
-            config.Metadata(x =>
-            {
-                x.AssertStatusResult();
-                x.AssertVerdict();
-                x.AssertGlobalMetadata("Success", "200", AssertLevel.SuccessOnly);
-                x.AssertGlobalMetadata("Failure", "400", AssertLevel.FailureOnly);
-            });
-        });
-
         var result = Outcome
             .Expect<Mock>()
-            .FailureIf(true)
+            .FailureIf(false)
             .WithError(error => {
                 string message = "Something went wrong.";
                 error.Exception = new Exception(message);
             })
             .Otherwise()
-            .Return(mock, overwrite: false)
+            .Return(mock, overwrite: true)
                 .WithMetadata("Timestamp", DateTime.Now)
                 .WithMetadata("Expected", mock)
                 .WithMetadata("OnlyFailure", "Fail?", AssertLevel.FailureOnly)
@@ -54,7 +40,7 @@ public class AppService : IAppService
         var str = result.IsSuccess ? "Success" : "Failure";
         _logger.LogWarning($"Result: {str}");
         _logger.LogWarning($"Verdict: {result.ResultTrace.Verdict}");
-        // _logger.LogWarning($"Mock: {x.Value.Message}");
+        _logger.LogWarning($"Mock: {result.Value.Message}");
 
         if(result.HasMetadata)
         {
