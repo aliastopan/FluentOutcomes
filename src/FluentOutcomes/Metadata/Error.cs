@@ -13,9 +13,14 @@ namespace FluentOutcomes.Metadata
             Exception = new Exception(message);
         }
 
+        public Error(string errorMessage)
+        {
+            Exception = new Exception(errorMessage);
+        }
+
         public Error(Exception exception)
         {
-            this.Exception = exception;
+            Exception = exception;
         }
     }
 }
