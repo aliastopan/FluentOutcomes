@@ -27,6 +27,11 @@ namespace FluentOutcomes
             return new Outcome(false, new Error());
         }
 
+        public static IOutcome Fail(string errorMessage)
+        {
+            return new Outcome(false, new Error(errorMessage));
+        }
+
         public static IOutcome Fail(Error error)
         {
             return new Outcome(false, error);
@@ -40,6 +45,11 @@ namespace FluentOutcomes
         public static IOutcome<T> Fail<T>()
         {
             return new Outcome<T>(default, false, new Error());
+        }
+
+        public static IOutcome<T> Fail<T>(string errorMessage)
+        {
+            return new Outcome<T>(default, false, new Error(errorMessage));
         }
 
         public static IOutcome<T> Fail<T>(T value, bool overwrite = false)
